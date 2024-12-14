@@ -45,11 +45,17 @@ pub enum ArtefactType {
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub struct Item {
 	pub id: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub name: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub names: Option<LocalizedText>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub description: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub descriptions: Option<LocalizedText>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Links>,
 }
 
@@ -58,16 +64,21 @@ pub struct Item {
 pub struct DataStructure {
 	#[serde(flatten)]
 	pub common: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data_structure_components: Option<DataStructureComponents>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct DataStructureComponents {
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub attribute_list: Option<AttributeList>,
 	pub dimension_list: DimensionList,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub groups: Option<Vec<Group>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub measure_list: Option<MeasureList>,
 }
 
@@ -75,9 +86,13 @@ pub struct DataStructureComponents {
 #[serde(rename_all = "camelCase")]
 pub struct AttributeList {
 	pub id: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Links>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub attributes: Option<Vec<Attribute>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata_attribute_usages: Option<Vec<MetadataAttributeUsage>>,
 }
 
@@ -85,12 +100,15 @@ pub struct AttributeList {
 #[serde(rename_all = "camelCase")]
 pub struct Attribute {
 	pub id: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	pub links: Option<Links>,
 	pub usage: Usage,
 	pub attribute_relationship: AttributeRelationship,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub measure_relationship: Option<Vec<String>>,
 	pub concept_identity: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub concept_roles: Option<Vec<String>>,
 	pub local_representation: LocalRepresentation,
 }
@@ -105,20 +123,30 @@ pub enum Usage {
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct AttributeRelationship {
-	pub dataflow: Option<()>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub dataflow: Option<()>, // TODO fix this
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub dimensions: Option<Vec<String>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub are_dimensions_optional: Option<Vec<bool>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub group: Option<String>,
-	pub observation: Option<()>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub observation: Option<()>, // TODO fix this
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct LocalRepresentation {
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub enumeration: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub enumeration_format: Option<EnumerationFormat>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub format: Option<Format>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub min_occurs: Option<usize>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub max_occurs: Option<MaxOccurs>,
 }
 
@@ -131,44 +159,72 @@ pub enum MaxOccurs {
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct EnumerationFormat {
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data_type: Option<DataType>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_sequence: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub interval: Option<isize>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub start_value: Option<isize>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub end_value: Option<isize>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub time_interval: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub start_time: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub end_time: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub min_length: Option<usize>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub max_length: Option<usize>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub min_value: Option<isize>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub max_value: Option<isize>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub pattern: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct Format {
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data_type: Option<DataType>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_sequence: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub interval: Option<isize>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub start_value: Option<isize>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub end_value: Option<isize>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub time_interval: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub start_time: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub end_time: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub min_length: Option<usize>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub max_length: Option<usize>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub min_value: Option<isize>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub max_value: Option<isize>,
 	pub is_multilingual: bool,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub sentinel_value: Option<Vec<SentinelValue>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataAttributeUsage {
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Links>,
 	pub metadata_attribute_reference: String,
 	pub attribute_relationship: AttributeRelationship,
@@ -177,30 +233,43 @@ pub struct MetadataAttributeUsage {
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct DimensionList {
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub id: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<String>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Links>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub dimensions: Option<Vec<Dimension>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub time_dimensions: Option<TimeDimension>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct Dimension {
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub id: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Links>,
 	pub position: usize,
 	pub concept_identity: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub concept_roles: Option<Vec<String>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub local_representation: Option<LocalRepresentation>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct TimeDimension {
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub id: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Links>,
 	pub concept_identity: String,
 	pub local_representation: LocalRepresentation,
@@ -209,7 +278,9 @@ pub struct TimeDimension {
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct TimeDimensionFormat {
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub start_time: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub end_time: Option<String>,
 	pub data_type: TimeDimensionDataType,
 	pub sentinel_values: Option<Vec<SentinelValue>>,
@@ -240,16 +311,22 @@ pub enum TimeDimensionDataType {
 #[serde(rename_all = "camelCase")]
 pub struct Group {
 	pub id: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Links>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub group_dimensions: Option<Vec<String>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub struct MeasureList {
 	pub id: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Links>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub measures: Option<Vec<Measure>>,
 }
 
@@ -257,9 +334,12 @@ pub struct MeasureList {
 #[serde(rename_all = "camelCase")]
 pub struct Measure {
 	pub id: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Links>,
 	pub concept_identity: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub concept_roles: Option<Vec<String>>,
 	pub local_representation: LocalRepresentation,
 	pub usage: Usage,
@@ -270,12 +350,14 @@ pub struct Measure {
 pub struct MetadataStructure {
 	#[serde(flatten)]
 	pub common: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata_structure_components: Option<MetadataStructureComponents>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataStructureComponents {
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata_attribute_list: Option<MetadataAttributeList>,
 }
 
@@ -283,8 +365,11 @@ pub struct MetadataStructureComponents {
 #[serde(rename_all = "camelCase")]
 pub struct MetadataAttributeList {
 	pub id: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Links>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata_attributes: Option<Vec<MetadataAttribute>>,
 }
 
@@ -292,14 +377,19 @@ pub struct MetadataAttributeList {
 #[serde(rename_all = "camelCase")]
 pub struct MetadataAttribute {
 	pub id: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Links>,
 	pub concept_identity: String,
 	// TODO: this local repr can't have min_occurs/max_occurs
 	pub local_representation: LocalRepresentation,
 	pub min_occurs: usize,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub max_occurs: Option<MaxOccurs>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_presentational: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata_attributes: Option<Vec<MetadataAttribute>>,
 }
 
@@ -308,7 +398,9 @@ pub struct MetadataAttribute {
 pub struct CategoryScheme {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub categories: Option<Vec<Item>>,
 }
 
@@ -317,20 +409,30 @@ pub struct CategoryScheme {
 pub struct ConceptScheme {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub concepts: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub core_representation: Option<CoreRepresentation>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub iso_concept_reference: Option<IsoConceptReference>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub parent: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct CoreRepresentation {
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub enumeration: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub enumeration_format: Option<EnumerationFormat>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub format: Option<Format>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub min_occurs: Option<usize>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub max_occurs: Option<MaxOccurs>,
 }
 
@@ -347,8 +449,11 @@ pub struct IsoConceptReference {
 pub struct Codelist {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub codes: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub parent: Option<String>,
 }
 
@@ -357,7 +462,9 @@ pub struct Codelist {
 pub struct GeographyCodelist {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub geo_feature_set_codes: Option<Vec<Item>>,
 }
 
@@ -366,7 +473,9 @@ pub struct GeographyCodelist {
 pub struct GeoGridCodelist {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub geo_grid_codes: Option<Vec<Item>>,
 }
 
@@ -375,7 +484,9 @@ pub struct GeoGridCodelist {
 pub struct AgencyScheme {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub agencies: Option<Vec<Item>>,
 }
 
@@ -384,7 +495,9 @@ pub struct AgencyScheme {
 pub struct DataProviderScheme {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data_providers: Option<Vec<Item>>,
 }
 
@@ -393,7 +506,9 @@ pub struct DataProviderScheme {
 pub struct DataConsumerScheme {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data_consumers: Option<Vec<Item>>,
 }
 
@@ -402,7 +517,9 @@ pub struct DataConsumerScheme {
 pub struct MetadataProviderScheme {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata_providers: Option<Vec<Item>>,
 }
 
@@ -411,6 +528,7 @@ pub struct MetadataProviderScheme {
 pub struct OrganizationUnitScheme {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(alias = "organisationUnits")]
 	pub organization_units: Option<Vec<Item>>,
@@ -421,6 +539,7 @@ pub struct OrganizationUnitScheme {
 pub struct Dataflow {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub structure: Option<String>,
 }
 
@@ -429,6 +548,7 @@ pub struct Dataflow {
 pub struct NamePersonalizationScheme {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(alias = "namePersonalisations")]
 	pub name_personalizations: Option<Vec<Item>>,
@@ -439,7 +559,9 @@ pub struct NamePersonalizationScheme {
 pub struct ReportingTaxonomy {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub reporting_categories: Option<Vec<Item>>,
 }
 
@@ -448,7 +570,9 @@ pub struct ReportingTaxonomy {
 pub struct Categorization {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub source: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub target: Option<String>,
 }
 
@@ -457,7 +581,9 @@ pub struct Categorization {
 pub struct CustomTypeScheme {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub custom_types: Option<Vec<Item>>,
 }
 
@@ -466,7 +592,9 @@ pub struct CustomTypeScheme {
 pub struct VtlMappingScheme {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub vtl_mappings: Option<Vec<Item>>,
 }
 
@@ -475,7 +603,9 @@ pub struct VtlMappingScheme {
 pub struct RulesetScheme {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub rulesets: Option<Vec<Item>>,
 }
 
@@ -484,7 +614,9 @@ pub struct RulesetScheme {
 pub struct TransformationScheme {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub transformations: Option<Vec<Item>>,
 }
 
@@ -493,6 +625,8 @@ pub struct TransformationScheme {
 pub struct UserDefinedOperatorsScheme {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub user_defined_operators: Option<Vec<Item>>,
 }
