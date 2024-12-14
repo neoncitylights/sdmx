@@ -1,5 +1,7 @@
-use crate::data::Annotation;
-use crate::{Action, DataType, Links, LocalizedText, MetaManyReceivers, NumberOrString, SdmxValue};
+use crate::{
+	Action, Annotation, DataType, Links, LocalizedText, MetaManyReceivers, NumberOrString,
+	SdmxValue,
+};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
