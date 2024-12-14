@@ -12,6 +12,9 @@ pub struct MetadataMessage {
 	pub data: Option<Data>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub errors: Option<Vec<StatusMessage>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Default, Clone, PartialEq, Eq)]
@@ -19,6 +22,9 @@ pub struct MetadataMessage {
 pub struct Data {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata_sets: Option<Vec<MetadataSet>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Default, Clone, PartialEq, Eq)]
@@ -59,6 +65,9 @@ pub struct MetadataSet {
 	pub descriptions: Option<LocalizedText>,
 	pub targets: Vec<String>,
 	pub attributes: Vec<Attributes>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Clone, PartialEq, Eq)]
@@ -70,6 +79,9 @@ pub struct Attributes {
 	pub format: Option<Format>,
 	pub value: SdmxValue,
 	pub attributes: Vec<Attributes>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Clone, PartialEq, Eq)]
@@ -116,4 +128,7 @@ pub struct StatusMessage {
 	pub details: Option<LocalizedText>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Links>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
