@@ -5,7 +5,7 @@ use serde_json::Value;
 use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Default, Clone, PartialEq, Eq)]
-pub struct Message {
+pub struct MetadataMessage {
 	pub meta: Option<MetaManyReceivers>,
 	pub data: Option<Data>,
 	pub errors: Option<Vec<StatusMessage>>,

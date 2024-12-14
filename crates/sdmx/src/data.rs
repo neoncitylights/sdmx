@@ -7,7 +7,7 @@ use serde_json::Value;
 use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
-pub struct MetadataMessage {
+pub struct DataMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub meta: Option<MetaManyReceivers>,
 	#[serde(skip_serializing_if = "Option::is_none")]
