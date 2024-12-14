@@ -6,38 +6,56 @@ use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Default, Clone, PartialEq, Eq)]
 pub struct MetadataMessage {
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub meta: Option<MetaManyReceivers>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data: Option<Data>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub errors: Option<Vec<StatusMessage>>,
 }
 
 #[derive(Serialize, Deserialize, Default, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct Data {
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata_sets: Option<Vec<MetadataSet>>,
 }
 
 #[derive(Serialize, Deserialize, Default, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataSet {
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub action: Option<Action>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub publication_period: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub publication_year: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub reporting_begin: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub reporting_year: Option<String>,
 	pub id: String,
 	pub agency_id: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub version: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_external_reference: Option<bool>,
 	pub metadataflow: String,
 	pub metadata_provision_agreement: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub valid_from: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub valid_to: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Links>,
 	pub name: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub names: Option<LocalizedText>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub description: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub descriptions: Option<LocalizedText>,
 	pub targets: Vec<String>,
 	pub attributes: Vec<Attributes>,
@@ -46,8 +64,10 @@ pub struct MetadataSet {
 #[derive(Serialize, Deserialize, Clone, PartialEq, Eq)]
 pub struct Attributes {
 	pub id: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
-	// pub format: Option<Format>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub format: Option<Format>,
 	pub value: SdmxValue,
 	pub attributes: Vec<Attributes>,
 }
@@ -86,9 +106,14 @@ pub struct Format {
 #[derive(Serialize, Deserialize, Default, Clone, PartialEq, Eq)]
 pub struct StatusMessage {
 	pub code: usize,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub title: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub titles: Option<LocalizedText>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub detail: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub details: Option<LocalizedText>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Links>,
 }
