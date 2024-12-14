@@ -1,0 +1,7 @@
+[workspace]
+members = ["crates/*"]
+resolver = "2"
+
+[workspace.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
