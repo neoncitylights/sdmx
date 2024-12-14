@@ -1,6 +1,8 @@
 use crate::structure::{CommonArtefactType, DataConstraint, MetadataConstraint};
 use crate::{Annotation, DataType, Error, Links, LocalizedText, Receiver, Sender, SentinelValue};
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub struct StructureMessage {
@@ -10,6 +12,9 @@ pub struct StructureMessage {
 	pub data: Option<Data>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub errors: Option<Vec<Error>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -31,6 +36,9 @@ pub struct Meta {
 	pub receiver: Option<Receiver>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Links>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -107,6 +115,9 @@ pub struct Data {
 	pub transformation_schemes: Option<Vec<TransformationScheme>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub user_defined_operator_schemes: Option<Vec<UserDefinedOperatorsScheme>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -164,6 +175,9 @@ pub struct Item {
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Links>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -175,6 +189,9 @@ pub struct DataStructure {
 	pub data_structure_components: Option<DataStructureComponents>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -187,6 +204,9 @@ pub struct DataStructureComponents {
 	pub groups: Option<Vec<Group>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub measure_list: Option<MeasureList>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -201,6 +221,9 @@ pub struct AttributeList {
 	pub attributes: Option<Vec<Attribute>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata_attribute_usages: Option<Vec<MetadataAttributeUsage>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -218,6 +241,9 @@ pub struct Attribute {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub concept_roles: Option<Vec<String>>,
 	pub local_representation: LocalRepresentation,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq)]
@@ -240,6 +266,9 @@ pub struct AttributeRelationship {
 	pub group: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub observation: Option<()>, // TODO fix this
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -255,6 +284,9 @@ pub struct LocalRepresentation {
 	pub min_occurs: Option<usize>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub max_occurs: Option<MaxOccurs>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -292,6 +324,9 @@ pub struct EnumerationFormat {
 	pub max_value: Option<isize>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub pattern: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -324,6 +359,9 @@ pub struct Format {
 	pub is_multilingual: bool,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub sentinel_value: Option<Vec<SentinelValue>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -335,6 +373,9 @@ pub struct MetadataAttributeUsage {
 	pub links: Option<Links>,
 	pub metadata_attribute_reference: String,
 	pub attribute_relationship: AttributeRelationship,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -350,6 +391,9 @@ pub struct DimensionList {
 	pub dimensions: Option<Vec<Dimension>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub time_dimensions: Option<TimeDimension>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -367,6 +411,9 @@ pub struct Dimension {
 	pub concept_roles: Option<Vec<String>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub local_representation: Option<LocalRepresentation>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -380,6 +427,9 @@ pub struct TimeDimension {
 	pub links: Option<Links>,
 	pub concept_identity: String,
 	pub local_representation: LocalRepresentation,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -391,6 +441,9 @@ pub struct TimeDimensionFormat {
 	pub end_time: Option<String>,
 	pub data_type: TimeDimensionDataType,
 	pub sentinel_values: Option<Vec<SentinelValue>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq)]
@@ -424,6 +477,9 @@ pub struct Group {
 	pub links: Option<Links>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub group_dimensions: Option<Vec<String>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -435,6 +491,9 @@ pub struct MeasureList {
 	pub links: Option<Links>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub measures: Option<Vec<Measure>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -450,6 +509,9 @@ pub struct Measure {
 	pub concept_roles: Option<Vec<String>>,
 	pub local_representation: LocalRepresentation,
 	pub usage: Usage,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -459,6 +521,9 @@ pub struct MetadataStructure {
 	pub common: CommonArtefactType,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata_structure_components: Option<MetadataStructureComponents>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -466,6 +531,9 @@ pub struct MetadataStructure {
 pub struct MetadataStructureComponents {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata_attribute_list: Option<MetadataAttributeList>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -478,6 +546,9 @@ pub struct MetadataAttributeList {
 	pub links: Option<Links>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata_attributes: Option<Vec<MetadataAttribute>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -498,6 +569,9 @@ pub struct MetadataAttribute {
 	pub is_presentational: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata_attributes: Option<Vec<MetadataAttribute>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -509,6 +583,9 @@ pub struct CategoryScheme {
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub categories: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -526,6 +603,9 @@ pub struct ConceptScheme {
 	pub iso_concept_reference: Option<IsoConceptReference>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub parent: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -541,6 +621,9 @@ pub struct CoreRepresentation {
 	pub min_occurs: Option<usize>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub max_occurs: Option<MaxOccurs>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -549,6 +632,9 @@ pub struct IsoConceptReference {
 	pub concept_agency: String,
 	pub concept_id: String,
 	pub concept_scheme_id: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -562,6 +648,9 @@ pub struct Codelist {
 	pub codes: Option<Vec<Item>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub parent: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -573,6 +662,9 @@ pub struct GeographyCodelist {
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub geo_feature_set_codes: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -584,6 +676,9 @@ pub struct GeoGridCodelist {
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub geo_grid_codes: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -595,6 +690,9 @@ pub struct AgencyScheme {
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub agencies: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -606,6 +704,9 @@ pub struct DataProviderScheme {
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data_providers: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -617,6 +718,9 @@ pub struct DataConsumerScheme {
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data_consumers: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -628,6 +732,9 @@ pub struct MetadataProviderScheme {
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata_providers: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -639,6 +746,9 @@ pub struct OrganizationUnitScheme {
 	pub is_partial: Option<bool>,
 	#[serde(alias = "organisationUnits")]
 	pub organization_units: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -648,6 +758,9 @@ pub struct Dataflow {
 	pub artefact: CommonArtefactType,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub structure: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -659,6 +772,9 @@ pub struct NamePersonalizationScheme {
 	pub is_partial: Option<bool>,
 	#[serde(alias = "namePersonalisations")]
 	pub name_personalizations: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -670,6 +786,9 @@ pub struct ReportingTaxonomy {
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub reporting_categories: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -681,6 +800,9 @@ pub struct Categorization {
 	pub source: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub target: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -692,6 +814,9 @@ pub struct CustomTypeScheme {
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub custom_types: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -703,6 +828,9 @@ pub struct VtlMappingScheme {
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub vtl_mappings: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -714,6 +842,9 @@ pub struct RulesetScheme {
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub rulesets: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -725,6 +856,9 @@ pub struct TransformationScheme {
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub transformations: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -736,4 +870,7 @@ pub struct UserDefinedOperatorsScheme {
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub user_defined_operators: Option<Vec<Item>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
