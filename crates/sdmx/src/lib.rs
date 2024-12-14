@@ -21,6 +21,7 @@ pub struct MetadataMessage {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+#[serde(rename_all = "camelCase")]
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub struct Meta {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -30,7 +31,6 @@ pub struct Meta {
 	pub test: Option<bool>,
 	pub prepared: String,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	#[serde(rename = "contentLanguages")]
 	pub content_languages: Option<Vec<String>>,
 	pub name: String,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -47,6 +47,7 @@ pub struct Meta {
 pub type Sender = Exchanger;
 pub type Receiver = Exchanger;
 
+#[serde(rename_all = "camelCase")]
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct Exchanger {
 	pub id: String,
@@ -58,6 +59,7 @@ pub struct Exchanger {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+#[serde(rename_all = "camelCase")]
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct Contact {
 	pub id: String,
@@ -87,18 +89,19 @@ pub struct Contact {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+#[serde(rename_all = "camelCase")]
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct Data {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub structures: Option<Structure>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	#[serde(rename = "dataSets")]
 	pub data_sets: Option<DataSet>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
 }
 
+#[serde(rename_all = "camelCase")]
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct Structure {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -120,6 +123,7 @@ pub type Dimensions = DimsMeasuresAttributes;
 pub type Measures = DimsMeasuresAttributes;
 pub type Attributes = DimsMeasuresAttributes;
 
+#[serde(rename_all = "camelCase")]
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct DimsMeasuresAttributes {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -135,6 +139,7 @@ pub struct DimsMeasuresAttributes {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+#[serde(rename_all = "camelCase")]
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct Component {
 	pub id: String,
@@ -149,7 +154,6 @@ pub struct Component {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub roles: Option<Vec<String>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	#[serde(rename = "isMandatory")]
 	pub is_mandatory: Option<bool>,
 	pub relationship: AttributeRelationship,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -167,6 +171,7 @@ pub struct Component {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+#[serde(rename_all = "camelCase")]
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct AttributeRelationship {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -176,7 +181,6 @@ pub struct AttributeRelationship {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub observation: Option<Value>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	#[serde(rename = "primaryMeasure")]
 	pub primary_measure: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub measures: Option<Vec<String>>,
@@ -264,6 +268,7 @@ pub enum DataType {
 	Xhtml,
 }
 
+#[serde(rename_all = "camelCase")]
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct SentinelValue {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -287,7 +292,6 @@ pub enum NumberOrString {
 	String(String),
 }
 
-#[serde(rename_all = "camelCase")]
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct ComponentValue {
 	pub id: String,
