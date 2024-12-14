@@ -1,4 +1,3 @@
-@ -1,27 +0,0 @@
 # sdmx
 
 [![License][license-badge]][license-url]
