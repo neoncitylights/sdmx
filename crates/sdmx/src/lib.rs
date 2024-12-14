@@ -4,6 +4,8 @@
 //! using Serde.
 
 mod common;
+pub use common::*;
+
 pub mod data;
 pub mod metadata;
-pub use common::*;
+pub mod structure;

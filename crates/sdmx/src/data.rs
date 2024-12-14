@@ -1,6 +1,6 @@
 use crate::{
-	Action, DataType, Links, LocalizedText, MetaManyReceivers, NumberOrString, SdmxObject,
-	SdmxValue,
+	Action, Annotation, DataType, Links, LocalizedText, MetaManyReceivers, NumberOrString,
+	SdmxObject, SdmxValue,
 };
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -156,24 +156,6 @@ pub struct Format {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
-#[serde(rename_all = "camelCase")]
-pub struct SentinelValue {
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub value: Option<NumberOrString>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub name: Option<String>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub names: Option<LocalizedText>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub description: Option<String>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub descriptions: Option<LocalizedText>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	#[serde(flatten)]
-	pub other: Option<HashMap<String, Value>>,
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct ComponentValue {
 	pub id: String,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -197,28 +179,6 @@ pub struct ComponentValue {
 	pub links: Option<Links>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	#[serde(flatten)]
-	pub other: Option<HashMap<String, Value>>,
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
-pub struct Annotation {
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub id: Option<String>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub title: Option<String>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	#[serde(rename = "type")]
-	pub type_: Option<String>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub value: Option<String>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub text: Option<String>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub texts: Option<LocalizedText>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,

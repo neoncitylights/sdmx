@@ -15,6 +15,28 @@ pub enum Action {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+pub struct Annotation {
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub id: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub title: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(rename = "type")]
+	pub type_: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub value: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub text: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub texts: Option<LocalizedText>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub links: Option<Links>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Contact {
 	pub id: String,
@@ -87,12 +109,12 @@ pub enum DataType {
 	Xhtml,
 }
 
-pub type Sender = Exchanger;
-pub type Receiver = Exchanger;
+pub type Sender = Party;
+pub type Receiver = Party;
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
-pub struct Exchanger {
+pub struct Party {
 	pub id: String,
 	pub name: String,
 	pub names: LocalizedText,
@@ -142,3 +164,21 @@ pub enum SdmxValue {
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct SdmxObject(pub HashMap<String, SdmxValue>);
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[serde(rename_all = "camelCase")]
+pub struct SentinelValue {
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub value: Option<NumberOrString>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub name: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub names: Option<LocalizedText>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub description: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub descriptions: Option<LocalizedText>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
+}
