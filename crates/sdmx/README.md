@@ -14,7 +14,7 @@
 [codecov-badge]: https://img.shields.io/codecov/c/github/neoncitylights/rust?style=flat-square&logo=codecov&logoColor=%23fff
 [codecov-url]: https://codecov.io/gh/neoncitylights/sdmx
 
-A Rust implementation of SDMX (Statistical Data and Metadata eXchange) using Serde
+A Rust implementation of SDMX-JSON (Statistical Data and Metadata eXchange) using Serde.
 
 ## Install
 
