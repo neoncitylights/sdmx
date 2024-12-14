@@ -12,8 +12,8 @@
 [ci-url]: https://github.com/neoncitylights/sdmx/actions/workflows/main.yml
 [security-badge]: https://img.shields.io/github/actions/workflow/status/neoncitylights/sdmx/.github/workflows/main.yml?style=flat-square
 [security-url]: https://github.com/neoncitylights/sdmx/actions/workflows/security-audit.yml
-[codecov]: https://img.shields.io/codecov/c/github/neoncitylights/rust?style=flat-square&logo=codecov&logoColor=%23fff
-[codecov-badge]: https://codecov.io/gh/neoncitylights/sdmx
+[codecov-badge]: https://img.shields.io/codecov/c/github/neoncitylights/rust?style=flat-square&logo=codecov&logoColor=%23fff
+[codecov-url]: https://codecov.io/gh/neoncitylights/sdmx
 
 A Rust implementation of SDMX (Statistical Data and Metadata eXchange) using Serde
 

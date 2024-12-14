@@ -1,5 +1,5 @@
 # Changelog
 
-## 0.0.0 (YYYY-MM-DD)
+## 0.1.0 (YYYY-MM-DD)
 
 - Initial release of the sdmx library
