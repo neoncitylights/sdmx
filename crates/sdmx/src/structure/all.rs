@@ -1,6 +1,113 @@
 use crate::structure::{CommonArtefactType, DataConstraint, MetadataConstraint};
-use crate::{Annotation, DataType, Links, LocalizedText, SentinelValue};
+use crate::{Annotation, DataType, Error, Links, LocalizedText, Receiver, Sender, SentinelValue};
 use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub struct StructureMessage {
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub meta: Option<Meta>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub data: Option<Data>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub errors: Option<Vec<Error>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub struct Meta {
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub schema: Option<String>,
+	pub id: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub test: Option<bool>,
+	pub prepared: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub content_languages: Option<Vec<String>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub name: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub names: Option<LocalizedText>,
+	pub sender: Sender,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub receiver: Option<Receiver>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub links: Option<Links>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub struct Data {
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub data_structures: Option<Vec<DataStructure>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub metadata_structures: Option<Vec<MetadataStructure>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub category_schemas: Option<Vec<CategoryScheme>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub concept_schemas: Option<Vec<ConceptScheme>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub concepts: Option<Vec<Codelist>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub geographic_codelists: Option<Vec<Codelist>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub geo_grid_codelists: Option<Vec<Codelist>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub value_lists: Option<Vec<CommonArtefactType>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub hierarchies: Option<Vec<CommonArtefactType>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub hierarchy_associations: Option<Vec<CommonArtefactType>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub agency_schemes: Option<Vec<AgencyScheme>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub data_provider_schemes: Option<Vec<DataProviderScheme>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub data_consumer_schemes: Option<Vec<DataConsumerScheme>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub metadata_provider_schemes: Option<Vec<MetadataProviderScheme>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub organisation_unit_schemes: Option<Vec<OrganizationUnitScheme>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub dataflows: Option<Vec<Dataflow>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub metadataflows: Option<Vec<CommonArtefactType>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub reporting_taxonomies: Option<Vec<ReportingTaxonomy>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub provision_agreements: Option<Vec<CommonArtefactType>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub metadata_provision_agreements: Option<Vec<CommonArtefactType>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub structure_maps: Option<Vec<CommonArtefactType>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub representation_maps: Option<Vec<CommonArtefactType>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub concept_scheme_maps: Option<Vec<CommonArtefactType>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub category_scheme_maps: Option<Vec<CommonArtefactType>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub organisation_scheme_maps: Option<Vec<CommonArtefactType>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub reporting_taxonomy_maps: Option<Vec<CommonArtefactType>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub processes: Option<Vec<CommonArtefactType>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub categorisations: Option<Vec<Categorization>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub data_constraints: Option<Vec<DataConstraint>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub metadata_constraints: Option<Vec<MetadataConstraint>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub custom_type_schemes: Option<Vec<CustomTypeScheme>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub vtl_mapping_schemes: Option<Vec<VtlMappingScheme>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub name_personalisation_schemes: Option<Vec<NamePersonalizationScheme>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub ruleset_schemes: Option<Vec<RulesetScheme>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub transformation_schemes: Option<Vec<TransformationScheme>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub user_defined_operator_schemes: Option<Vec<UserDefinedOperatorsScheme>>,
+}
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub enum ArtefactType {

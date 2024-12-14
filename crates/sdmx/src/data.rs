@@ -1,5 +1,5 @@
 use crate::{
-	Action, Annotation, DataType, Links, LocalizedText, MetaManyReceivers, NumberOrString,
+	Action, Annotation, DataType, Error, Links, LocalizedText, MetaManyReceivers, NumberOrString,
 	SdmxObject, SdmxValue,
 };
 use serde::{Deserialize, Serialize};
@@ -228,19 +228,6 @@ pub struct Series {
 	pub attributes: Option<Vec<SdmxValue>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub observations: Option<SdmxObject>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	#[serde(flatten)]
-	pub other: Option<HashMap<String, Value>>,
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
-pub struct Error {
-	pub code: usize,
-	pub title: String,
-	pub titles: LocalizedText,
-	pub detail: String,
-	pub details: LocalizedText,
-	pub links: Links,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,

@@ -109,8 +109,18 @@ pub enum DataType {
 	Xhtml,
 }
 
-pub type Sender = Party;
-pub type Receiver = Party;
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+pub struct Error {
+	pub code: usize,
+	pub title: String,
+	pub titles: LocalizedText,
+	pub detail: String,
+	pub details: LocalizedText,
+	pub links: Links,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
+}
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
@@ -123,6 +133,9 @@ pub struct Party {
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
 }
+
+pub type Sender = Party;
+pub type Receiver = Party;
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
