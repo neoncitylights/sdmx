@@ -1,6 +1,8 @@
 use crate::structure::CommonArtefactType;
 use crate::{Annotation, Links};
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
@@ -16,6 +18,9 @@ pub struct DataConstraint {
 	pub data_key_sets: Option<Vec<DataKeySet>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub release_calendar: Option<ReleaseCalendar>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -30,6 +35,9 @@ pub struct MetadataConstraint {
 	pub metadata_target_regions: Option<Vec<MetadataTargetRegion>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub release_calendar: Option<ReleaseCalendar>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -47,6 +55,9 @@ pub struct ConstraintAttachment {
 	pub simple_data_sources: Option<Vec<String>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub queryable_data_sources: Option<QueryableDataSource>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -66,6 +77,9 @@ pub struct MetadataConstraintAttachment {
 	pub simple_data_sources: Option<Vec<String>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub queryable_data_sources: Option<QueryableDataSource>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -79,6 +93,9 @@ pub struct QueryableDataSource {
 	pub wadl_url: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub wsdl_url: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -94,6 +111,9 @@ pub struct CubeRegion {
 	pub components: Option<Vec<ComponentValueSet>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub key_values: Option<Vec<CubeRegionKey>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -108,6 +128,9 @@ pub struct ComponentValueSet {
 	pub time_range: Option<TimeRangeValue>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub values: Option<Vec<StringOrScv>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -128,6 +151,9 @@ pub struct TimeRangeValue {
 	pub end_period: Option<TimePeriodRange>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub start_period: Option<TimePeriodRange>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -137,6 +163,9 @@ pub struct TimePeriodRange {
 	pub period: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_inclusive: Option<bool>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -150,6 +179,9 @@ pub struct SimpleComponentValue {
 	pub valid_from: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub valid_to: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -175,6 +207,9 @@ pub struct CubeRegionKey {
 	pub time_range: Option<TimeRangeValue>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub values: Option<Vec<StringOrScv>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -182,6 +217,9 @@ pub struct CubeRegionKey {
 pub struct DataKeySet {
 	pub is_included: bool,
 	pub keys: Vec<DataKey>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -198,6 +236,9 @@ pub struct DataKey {
 	pub valid_to: Option<String>,
 	pub key_values: Vec<DataKeyValue>,
 	pub components: Vec<DataComponentValueSet>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -209,6 +250,9 @@ pub struct DataKeyValue {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub remove_prefix: Option<bool>,
 	pub value: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -222,6 +266,9 @@ pub struct DataComponentValueSet {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub time_range: Option<TimeRangeValue>,
 	pub values: Vec<StringOrDcv>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -239,6 +286,9 @@ pub struct DataComponentValue {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub lang: Option<String>,
 	pub value: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -256,6 +306,9 @@ pub struct MetadataTargetRegion {
 	pub valid_from: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub valid_to: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -270,6 +323,9 @@ pub struct MetadataAttributeValueSet {
 	pub time_range: Option<TimeRangeValue>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub values: Option<Vec<StringOrScv>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -277,4 +333,7 @@ pub struct ReleaseCalendar {
 	pub offset: String,
 	pub periodicity: String,
 	pub tolerance: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }

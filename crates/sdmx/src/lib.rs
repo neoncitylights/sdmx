@@ -6,6 +6,9 @@
 mod common;
 pub use common::*;
 
+/// SDMX-JSON data message format
 pub mod data;
+/// SDMX-JSON metadata message format
 pub mod metadata;
+/// SDMX-JSON structure message format
 pub mod structure;
