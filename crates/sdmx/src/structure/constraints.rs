@@ -1,5 +1,5 @@
-use crate::{Annotation, Links};
 use crate::structure::CommonArtefactType;
+use crate::{Annotation, Links};
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
