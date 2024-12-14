@@ -1,8 +1,8 @@
 [package]
-name = "my-crate"
+name = "sdmx"
 version = "0.1.0"
-authors = ["{{author}} <{{email}}>"]
-description = "{{desc}}"
+authors = ["Samantha Nguyen <contact@samanthanguyen.me>"]
+description = "A Rust implementation of SDMX (Statistical Data and Metadata eXchange) using Serde"
 readme = "README.md"
 license = "MIT OR Apache-2.0"
 

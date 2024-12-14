@@ -16,10 +16,10 @@ Open your favorite terminal and clone this locally.
 
 Replace the following placeholders with your editor's find-and-replace:
 
-- `{{library}}` - The name of the library.
-- `{{desc}}` - The description of the library.
-- `{{author}}` - The author's name of the library. For example, this could be a username, nickname, or real name.
-- `{{email}}` - The author's email address. This is optional and can be deleted.
+- `sdmx` - The name of the library.
+- `A Rust implementation of SDMX (Statistical Data and Metadata eXchange) using Serde` - The description of the library.
+- `Samantha Nguyen` - The author's name of the library. For example, this could be a username, nickname, or real name.
+- `contact@samanthanguyen.me` - The author's email address. This is optional and can be deleted.
 
 ## Features
 
