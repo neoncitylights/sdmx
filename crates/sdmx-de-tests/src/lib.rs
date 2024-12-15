@@ -39,6 +39,7 @@ mod tests {
 	use super::*;
 
 	#[test]
+	#[cfg_attr(miri, ignore)]
 	fn test_sample01() {
 		let file = read_json(fixture!("sample01.json"));
 		print!("{:?}", file);
