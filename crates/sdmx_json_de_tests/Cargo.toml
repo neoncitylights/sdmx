@@ -1,7 +1,7 @@
 [package]
 name = "sdmx_json_de_tests"
-description = "Testing JSON deserialization for sdmx crate"
-version = "0.1.0"
+description = "Testing JSON deserialization for sdmx_json crate"
+publish = false
 edition = "2021"
 
 [dependencies]
