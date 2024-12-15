@@ -254,16 +254,3 @@ pub struct Series {
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
 }
-
-impl_extendable!(
-	DataMessage,
-	Data,
-	Structure,
-	DimsMeasuresAttributes,
-	Component,
-	AttributeRelationship,
-	Format,
-	ComponentValue,
-	DataSet,
-	Series,
-);

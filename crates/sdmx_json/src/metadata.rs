@@ -156,12 +156,3 @@ pub struct StatusMessage {
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
 }
-
-impl_extendable!(
-	MetadataMessage,
-	Data,
-	MetadataSet,
-	Attributes,
-	Format,
-	StatusMessage,
-);
