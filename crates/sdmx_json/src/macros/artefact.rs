@@ -18,7 +18,7 @@ macro_rules! impl_artefact {
 					self.artefact.name.as_ref()
 				}
 
-				fn names(&self) -> Option<&$crate::LocalizedText> {
+				fn names(&self) -> Option<&$crate::primitives::LocalizedText> {
 					self.artefact.names.as_ref()
 				}
 
@@ -34,11 +34,11 @@ macro_rules! impl_artefact {
 					self.artefact.is_external_reference
 				}
 
-				fn annotations(&self) -> Option<&Vec<$crate::Annotation>> {
+				fn annotations(&self) -> Option<&Vec<$crate::primitives::Annotation>> {
 					self.artefact.annotations.as_ref()
 				}
 
-				fn links(&self) -> Option<&Vec<$crate::Link>> {
+				fn links(&self) -> Option<&Vec<$crate::primitives::Link>> {
 					self.artefact.links.as_ref()
 				}
 			}

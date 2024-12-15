@@ -1,4 +1,4 @@
-use crate::{Annotation, Link, LocalizedText};
+use crate::primitives::{Annotation, Link, LocalizedText};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;

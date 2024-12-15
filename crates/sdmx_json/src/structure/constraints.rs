@@ -1,5 +1,5 @@
+use crate::primitives::{Annotation, Link};
 use crate::structure::CommonArtefactType;
-use crate::{Annotation, Link};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;

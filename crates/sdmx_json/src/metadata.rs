@@ -1,4 +1,4 @@
-use crate::{
+use crate::primitives::{
 	Action, Annotation, DataType, Link, LocalizedText, MetaManyReceivers, NumberOrString, SdmxValue,
 };
 use serde::{Deserialize, Serialize};
