@@ -6,6 +6,7 @@
 			"id":"Nt",
 			"contacts":[
 				{
+					"id": "contact-1",
 					"telephones":[
 						"sint adipisicing incididunt",
 						"dolore aliqua",
@@ -55,6 +56,7 @@
 					"commodo3f1":true
 				},
 				{
+					"id": "contact-2",
 					"names":{
 						"x-ll8oul64-k45i8qq1-bqz-occ7ae9-hc5gr-z1l-7ze-3yfs":"quis exercitation cillum irure magna",
 						"pgzs-641-j4ol3g54-5hxhnbof-cb1xs67y-5dtugub-thluk081-0u6n-0w8b3u-3r6w-x-aqbmn-uxb7p-24xqd54":"Lorem",
@@ -213,7 +215,7 @@
 						"attributes":[
 							{
 								"format":{
-									"interval":-96836005.30440177,
+									"interval":-96836005,
 									"minLength":76911443,
 									"decimals":91544631,
 									"endTime":"0499-14:00",
