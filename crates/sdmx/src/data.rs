@@ -5,6 +5,7 @@ use crate::{
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
+use std::str::FromStr;
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct DataMessage {
@@ -17,6 +18,27 @@ pub struct DataMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+impl<'a> TryFrom<&'a [u8]> for DataMessage {
+	type Error = serde_json::Error;
+	fn try_from(slice: &'a [u8]) -> Result<Self, Self::Error> {
+		serde_json::from_slice(slice)
+	}
+}
+
+impl FromStr for DataMessage {
+	type Err = serde_json::Error;
+	fn from_str(s: &str) -> Result<Self, Self::Err> {
+		serde_json::from_str(s)
+	}
+}
+
+impl TryFrom<Value> for DataMessage {
+	type Error = serde_json::Error;
+	fn try_from(value: Value) -> Result<Self, Self::Error> {
+		serde_json::from_value(value)
+	}
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
