@@ -1,6 +1,5 @@
 use crate::{
-	Action, Annotation, DataType, Error, Links, LocalizedText, MetaManyReceivers, NumberOrString,
-	SdmxObject, SdmxValue,
+	Action, Annotation, DataType, Error, Link, LocalizedText, MetaSingleReceiver, NumberOrString, SdmxObject, SdmxValue
 };
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -10,7 +9,7 @@ use std::str::FromStr;
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct DataMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub meta: Option<MetaManyReceivers>,
+	pub meta: Option<MetaSingleReceiver>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data: Option<Data>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -57,7 +56,7 @@ pub struct Data {
 #[serde(rename_all = "camelCase")]
 pub struct Structure {
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	pub dimensions: Dimensions,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub measures: Option<Measures>,
@@ -113,7 +112,7 @@ pub struct Component {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub default_value: Option<NumberOrString>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<String>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -198,7 +197,7 @@ pub struct ComponentValue {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub order: Option<isize>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -226,7 +225,7 @@ pub struct DataSet {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub publication_period: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]

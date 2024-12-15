@@ -1,0 +1,31 @@
+{
+	"meta":{
+		"schema":"https://raw.githubusercontent.com/sdmx-twg/sdmx-json/master/data-message/tools/schemas/2.0.0/sdmx-json-data-schema.json",
+		"id":"IT1001",
+		"prepared":"2018-03-11T14:30:47",
+		"test":true,
+		"contentLanguages":[
+			"en"
+		],
+		"sender":{
+			"id":"NIS",
+			"name":"National Institute of Statistics of Cambodia",
+			"names":{
+				"en":"National Institute of Statistics of Cambodia"
+			}
+		},
+		"receiver":{
+			"id":"IMF",
+			"name":"International Monetary Fund",
+			"names":{
+				"en":"International Monetary Fund"
+			}
+		},
+		"links":[
+			{
+				"href":"http://ws-root/data/MA_545,MILLED_RICE,1.0/ASIKHM002+ASIKHM001../?dimensionAtObservation=AllDimensions&startPeriod=2013&endPeriod=2018",
+				"rel":"self"
+			}
+		]
+	}
+}

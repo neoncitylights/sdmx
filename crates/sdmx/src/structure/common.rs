@@ -1,4 +1,4 @@
-use crate::{Annotation, Links, LocalizedText};
+use crate::{Annotation, Link, LocalizedText};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
@@ -24,7 +24,7 @@ pub struct CommonArtefactType {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,

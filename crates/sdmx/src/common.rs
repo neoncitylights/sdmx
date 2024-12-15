@@ -3,7 +3,19 @@ use serde_json::Value;
 use std::collections::HashMap;
 
 pub type LocalizedText = HashMap<String, String>;
-pub type Links = Vec<String>;
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+pub struct Link {
+	pub href: String,
+	pub rel: String,
+	pub url: Option<String>,
+	pub uri: Option<String>,
+	pub title: Option<String>,
+	pub titles: Option<LocalizedText>,
+	#[serde(rename = "type")]
+	pub type_: Option<String>,
+	pub hreflang: Option<String>,
+}
 
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum Action {
@@ -30,7 +42,7 @@ pub struct Annotation {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub texts: Option<LocalizedText>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
@@ -116,7 +128,7 @@ pub struct Error {
 	pub titles: LocalizedText,
 	pub detail: String,
 	pub details: LocalizedText,
-	pub links: Links,
+	pub links: Vec<Link>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
@@ -126,9 +138,9 @@ pub struct Error {
 #[serde(rename_all = "camelCase")]
 pub struct Party {
 	pub id: String,
-	pub name: String,
+	pub name: Option<String>,
 	pub names: LocalizedText,
-	pub contacts: Vec<Contact>,
+	pub contacts: Option<Vec<Contact>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
@@ -136,6 +148,29 @@ pub struct Party {
 
 pub type Sender = Party;
 pub type Receiver = Party;
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct MetaSingleReceiver {
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub schema: Option<String>,
+	pub id: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub test: Option<bool>,
+	pub prepared: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub content_languages: Option<Vec<String>>,
+	pub name: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub names: Option<LocalizedText>,
+	pub sender: Sender,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub receiver: Option<Receiver>,
+	pub links: Vec<Link>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
+}
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
@@ -153,8 +188,8 @@ pub struct MetaManyReceivers {
 	pub names: Option<LocalizedText>,
 	pub sender: Sender,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub receiver: Option<Vec<Receiver>>,
-	pub links: Links,
+	pub receivers: Option<Vec<Receiver>>,
+	pub links: Vec<Link>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,

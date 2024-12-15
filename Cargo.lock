@@ -47,6 +47,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "sdmx-ser-tests"
+version = "0.1.0"
+dependencies = [
+ "sdmx",
+ "serde_json",
+]
+
+[[package]]
 name = "serde"
 version = "1.0.216"
 source = "registry+https://github.com/rust-lang/crates.io-index"
