@@ -158,10 +158,10 @@ pub struct StatusMessage {
 }
 
 impl_extendable!(
- 	MetadataMessage,
- 	Data,
- 	MetadataSet,
- 	Attributes,
- 	Format,
- 	StatusMessage,
+	MetadataMessage,
+	Data,
+	MetadataSet,
+	Attributes,
+	Format,
+	StatusMessage,
 );

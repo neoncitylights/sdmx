@@ -256,14 +256,14 @@ pub struct Series {
 }
 
 impl_extendable!(
- 	DataMessage,
- 	Data,
- 	Structure,
- 	DimsMeasuresAttributes,
- 	Component,
- 	AttributeRelationship,
- 	Format,
- 	ComponentValue,
- 	DataSet,
- 	Series,
- );
+	DataMessage,
+	Data,
+	Structure,
+	DimsMeasuresAttributes,
+	Component,
+	AttributeRelationship,
+	Format,
+	ComponentValue,
+	DataSet,
+	Series,
+);
