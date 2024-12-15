@@ -6,6 +6,9 @@
 mod common;
 pub use common::*;
 
+#[macro_use]
+mod macros;
+
 /// SDMX-JSON data message format
 pub mod data;
 /// SDMX-JSON metadata message format

@@ -1,3 +1,4 @@
+use crate::structure::TimeDimensionDataType;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
@@ -29,6 +30,14 @@ pub struct Link {
 pub enum Location {
 	Href(String),
 	Urn(String),
+}
+
+impl Location {
+	pub fn as_string(&self) -> &String {
+		match self {
+			Self::Href(s) | Self::Urn(s) => s,
+		}
+	}
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Default)]
@@ -137,6 +146,56 @@ pub enum DataType {
 	GeospatialInformation,
 	#[serde(rename = "XHTML")]
 	Xhtml,
+}
+
+impl DataType {
+	pub const fn is_reporting(&self) -> bool {
+		matches!(
+			self,
+			Self::ReportingDay
+				| Self::ReportingWeek
+				| Self::ReportingMonth
+				| Self::ReportingYear
+				| Self::ReportingQuarter
+				| Self::ReportingSemester
+				| Self::ReportingTrimester
+				| Self::ReportingTimePeriod
+		)
+	}
+
+	pub const fn is_gregorian(&self) -> bool {
+		matches!(
+			self,
+			Self::GregorianTimePeriod
+				| Self::GregorianYear
+				| Self::GregorianYearMonth
+				| Self::GregorianDay
+		)
+	}
+}
+
+impl From<TimeDimensionDataType> for DataType {
+	fn from(value: TimeDimensionDataType) -> Self {
+		match value {
+			TimeDimensionDataType::ObservationalTimePeriod => Self::ObservationalTimePeriod,
+			TimeDimensionDataType::StandardTimePeriod => Self::StandardTimePeriod,
+			TimeDimensionDataType::BasicTimePeriod => Self::BasicTimePeriod,
+			TimeDimensionDataType::GregorianTimePeriod => Self::GregorianTimePeriod,
+			TimeDimensionDataType::GregorianYear => Self::GregorianYear,
+			TimeDimensionDataType::GregorianYearMonth => Self::GregorianYearMonth,
+			TimeDimensionDataType::GregorianDay => Self::GregorianDay,
+			TimeDimensionDataType::ReportingTimePeriod => Self::ReportingTimePeriod,
+			TimeDimensionDataType::ReportingYear => Self::ReportingYear,
+			TimeDimensionDataType::ReportingSemester => Self::ReportingSemester,
+			TimeDimensionDataType::ReportingTrimester => Self::ReportingTrimester,
+			TimeDimensionDataType::ReportingQuarter => Self::ReportingQuarter,
+			TimeDimensionDataType::ReportingMonth => Self::ReportingMonth,
+			TimeDimensionDataType::ReportingWeek => Self::ReportingWeek,
+			TimeDimensionDataType::ReportingDay => Self::ReportingDay,
+			TimeDimensionDataType::DateTime => Self::DateTime,
+			TimeDimensionDataType::TimeRange => Self::TimeRange,
+		}
+	}
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
