@@ -1,5 +1,5 @@
 use crate::structure::CommonArtefactType;
-use crate::{Annotation, Links};
+use crate::{Annotation, Link};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
@@ -104,7 +104,7 @@ pub struct CubeRegion {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub include: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -228,7 +228,7 @@ pub struct DataKey {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	pub include: bool,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub valid_from: Option<String>,
@@ -297,7 +297,7 @@ pub struct MetadataTargetRegion {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub include: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]

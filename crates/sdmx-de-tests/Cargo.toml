@@ -1,0 +1,9 @@
+[package]
+name = "sdmx-ser-tests"
+description = "Testing JSON deserialization for sdmx crate"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+sdmx.path = "../sdmx"
+serde_json = "1.0.133"

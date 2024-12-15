@@ -1,5 +1,5 @@
 use crate::structure::{CommonArtefactType, DataConstraint, MetadataConstraint};
-use crate::{Annotation, DataType, Error, Links, LocalizedText, Receiver, Sender, SentinelValue};
+use crate::{Annotation, DataType, Error, Link, LocalizedText, MetaSingleReceiver, SentinelValue};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
@@ -8,7 +8,7 @@ use std::str::FromStr;
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub struct StructureMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub meta: Option<Meta>,
+	pub meta: Option<MetaSingleReceiver>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data: Option<Data>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -37,30 +37,6 @@ impl TryFrom<Value> for StructureMessage {
 	fn try_from(value: Value) -> Result<Self, Self::Error> {
 		serde_json::from_value(value)
 	}
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
-pub struct Meta {
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub schema: Option<String>,
-	pub id: String,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub test: Option<bool>,
-	pub prepared: String,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub content_languages: Option<Vec<String>>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub name: Option<String>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub names: Option<LocalizedText>,
-	pub sender: Sender,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub receiver: Option<Receiver>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	#[serde(flatten)]
-	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -196,7 +172,7 @@ pub struct Item {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
@@ -238,7 +214,7 @@ pub struct AttributeList {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub attributes: Option<Vec<Attribute>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -254,7 +230,7 @@ pub struct Attribute {
 	pub id: String,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	pub usage: Usage,
 	pub attribute_relationship: AttributeRelationship,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -392,7 +368,7 @@ pub struct MetadataAttributeUsage {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	pub metadata_attribute_reference: String,
 	pub attribute_relationship: AttributeRelationship,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -408,7 +384,7 @@ pub struct DimensionList {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<String>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub dimensions: Option<Vec<Dimension>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -426,7 +402,7 @@ pub struct Dimension {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	pub position: usize,
 	pub concept_identity: String,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -446,7 +422,7 @@ pub struct TimeDimension {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	pub concept_identity: String,
 	pub local_representation: LocalRepresentation,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -496,7 +472,7 @@ pub struct Group {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub group_dimensions: Option<Vec<String>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -510,7 +486,7 @@ pub struct MeasureList {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub measures: Option<Vec<Measure>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -525,7 +501,7 @@ pub struct Measure {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	pub concept_identity: String,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub concept_roles: Option<Vec<String>>,
@@ -565,7 +541,7 @@ pub struct MetadataAttributeList {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata_attributes: Option<Vec<MetadataAttribute>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -580,7 +556,7 @@ pub struct MetadataAttribute {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Links>,
+	pub links: Option<Vec<Link>>,
 	pub concept_identity: String,
 	// TODO: this local repr can't have min_occurs/max_occurs
 	pub local_representation: LocalRepresentation,
