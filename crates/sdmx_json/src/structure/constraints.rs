@@ -337,3 +337,27 @@ pub struct ReleaseCalendar {
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
 }
+
+impl_artefact!(DataConstraint, MetadataConstraint);
+
+impl_extendable!(
+	DataConstraint,
+	MetadataConstraint,
+	ConstraintAttachment,
+	MetadataConstraintAttachment,
+	QueryableDataSource,
+	CubeRegion,
+	ComponentValueSet,
+	TimeRangeValue,
+	TimePeriodRange,
+	SimpleComponentValue,
+	CubeRegionKey,
+	DataKeySet,
+	DataKey,
+	DataKeyValue,
+	DataComponentValueSet,
+	DataComponentValue,
+	MetadataTargetRegion,
+	MetadataAttributeValueSet,
+	ReleaseCalendar,
+);

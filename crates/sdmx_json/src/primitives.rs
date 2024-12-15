@@ -3,6 +3,10 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
 
+pub trait Extendable {
+	fn other(&self) -> Option<&HashMap<String, Value>>;
+}
+
 pub type LocalizedText = HashMap<String, String>;
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -23,6 +27,9 @@ pub struct Link {
 	pub type_: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub hreflang: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -313,3 +320,14 @@ pub struct SentinelValue {
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
 }
+
+impl_extendable!(
+	Link,
+	Annotation,
+	Contact,
+	Error,
+	Party,
+	MetaSingleReceiver,
+	MetaManyReceivers,
+	SentinelValue,
+);
