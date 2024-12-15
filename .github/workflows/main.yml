@@ -178,7 +178,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - crate: sdmx
+          - crate: sdmx_json
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
