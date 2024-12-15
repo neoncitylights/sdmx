@@ -1,5 +1,5 @@
-use crate::structure::Item;
 use crate::primitives::{Annotation, Link, LocalizedText};
+use crate::structure::Item;
 
 pub trait Artefact {
 	fn id(&self) -> &String;
