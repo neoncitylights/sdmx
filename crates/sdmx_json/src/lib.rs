@@ -3,12 +3,11 @@
 //! A Rust implementation of SDMX-JSON (Statistical Data and Metadata eXchange)
 //! using Serde.
 
-mod common;
-pub use common::*;
-
 #[macro_use]
 mod macros;
 
+/// Common foundational types shared between the message formats
+pub mod primitives;
 /// SDMX-JSON data message format
 pub mod data;
 /// SDMX-JSON metadata message format

@@ -1,4 +1,4 @@
-use crate::{
+use crate::primitives::{
 	Action, Annotation, DataType, Link, LocalizedText, MetaManyReceivers, NumberOrString, SdmxValue,
 };
 use serde::{Deserialize, Serialize};
@@ -156,3 +156,12 @@ pub struct StatusMessage {
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
 }
+
+impl_extendable!(
+	MetadataMessage,
+	Data,
+	MetadataSet,
+	Attributes,
+	Format,
+	StatusMessage,
+);
