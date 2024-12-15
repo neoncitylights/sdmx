@@ -74,7 +74,7 @@ mod tests {
 	#[cfg_attr(miri, ignore)]
 	fn test_metadata_sample03() {
 		let file = read_json::<MetadataMessage>(fixture!("metadata_sample03.json"));
-		println!("{:?}", file);
+		assert!(file.is_ok());
 	}
 
 	// #[test]
