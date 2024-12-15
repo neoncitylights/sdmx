@@ -115,7 +115,7 @@ pub struct Component {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub annotations: Option<Vec<String>>,
+	pub annotations: Option<Vec<usize>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub values: Option<Vec<Option<ComponentValue>>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -200,7 +200,7 @@ pub struct ComponentValue {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub annotations: Option<Vec<Annotation>>,
+	pub annotations: Option<Vec<usize>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,

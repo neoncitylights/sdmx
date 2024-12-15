@@ -42,6 +42,13 @@ mod tests {
 	#[cfg_attr(miri, ignore)]
 	fn test_sample01() {
 		let file = read_json(fixture!("sample01.json"));
-		print!("{:?}", file);
+		assert!(file.is_ok());
+	}
+
+	#[test]
+	#[cfg_attr(miri, ignore)]
+	fn test_sample02() {
+		let file = read_json(fixture!("sample02.json"));
+		println!("{:?}", file);
 	}
 }
