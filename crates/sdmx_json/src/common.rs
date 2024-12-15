@@ -9,12 +9,18 @@ pub struct Link {
 	#[serde(flatten)]
 	pub location: Location,
 	pub rel: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub url: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub uri: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub title: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub titles: Option<LocalizedText>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(rename = "type")]
 	pub type_: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub hreflang: Option<String>,
 }
 
@@ -150,8 +156,11 @@ pub struct Error {
 #[serde(rename_all = "camelCase")]
 pub struct Party {
 	pub id: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub name: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub names: Option<LocalizedText>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub contacts: Option<Vec<Contact>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
