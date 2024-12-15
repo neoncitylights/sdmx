@@ -1,5 +1,7 @@
+use crate::primitives::{
+	Annotation, DataType, Error, Link, LocalizedText, MetaSingleReceiver, SentinelValue,
+};
 use crate::structure::{CommonArtefactType, DataConstraint, MetadataConstraint};
-use crate::primitives::{Annotation, DataType, Error, Link, LocalizedText, MetaSingleReceiver, SentinelValue};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
