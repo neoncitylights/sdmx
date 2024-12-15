@@ -465,6 +465,58 @@ pub enum TimeDimensionDataType {
 	TimeRange,
 }
 
+impl TimeDimensionDataType {
+	pub const fn is_reporting(&self) -> bool {
+		matches!(
+			self,
+			Self::ReportingDay
+				| Self::ReportingWeek
+				| Self::ReportingMonth
+				| Self::ReportingYear
+				| Self::ReportingQuarter
+				| Self::ReportingSemester
+				| Self::ReportingTrimester
+				| Self::ReportingTimePeriod
+		)
+	}
+
+	pub const fn is_gregorian(&self) -> bool {
+		matches!(
+			self,
+			Self::GregorianTimePeriod
+				| Self::GregorianYear
+				| Self::GregorianYearMonth
+				| Self::GregorianDay
+		)
+	}
+}
+
+impl TryFrom<DataType> for TimeDimensionDataType {
+	type Error = ();
+	fn try_from(value: DataType) -> Result<Self, Self::Error> {
+		match value {
+			DataType::ObservationalTimePeriod => Ok(Self::ObservationalTimePeriod),
+			DataType::StandardTimePeriod => Ok(Self::StandardTimePeriod),
+			DataType::BasicTimePeriod => Ok(Self::BasicTimePeriod),
+			DataType::GregorianTimePeriod => Ok(Self::GregorianTimePeriod),
+			DataType::GregorianYear => Ok(Self::GregorianYear),
+			DataType::GregorianYearMonth => Ok(Self::GregorianYearMonth),
+			DataType::GregorianDay => Ok(Self::GregorianDay),
+			DataType::ReportingTimePeriod => Ok(Self::ReportingTimePeriod),
+			DataType::ReportingYear => Ok(Self::ReportingYear),
+			DataType::ReportingSemester => Ok(Self::ReportingSemester),
+			DataType::ReportingTrimester => Ok(Self::ReportingTrimester),
+			DataType::ReportingQuarter => Ok(Self::ReportingQuarter),
+			DataType::ReportingMonth => Ok(Self::ReportingMonth),
+			DataType::ReportingWeek => Ok(Self::ReportingWeek),
+			DataType::ReportingDay => Ok(Self::ReportingDay),
+			DataType::DateTime => Ok(Self::DateTime),
+			DataType::TimeRange => Ok(Self::TimeRange),
+			_ => Err(()),
+		}
+	}
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct Group {
@@ -871,4 +923,46 @@ pub struct UserDefinedOperatorsScheme {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+impl_artefact! {
+	CategoryScheme,
+	ConceptScheme,
+	Codelist,
+	GeographyCodelist,
+	GeoGridCodelist,
+	AgencyScheme,
+	DataProviderScheme,
+	DataConsumerScheme,
+	MetadataProviderScheme,
+	OrganizationUnitScheme,
+	Dataflow,
+	NamePersonalizationScheme,
+	ReportingTaxonomy,
+	Categorization,
+	CustomTypeScheme,
+	VtlMappingScheme,
+	RulesetScheme,
+	TransformationScheme,
+	UserDefinedOperatorsScheme,
+}
+
+impl_item_scheme! {
+	(ConceptScheme, concepts),
+	(CategoryScheme, categories),
+	(Codelist, codes),
+	(GeographyCodelist, geo_feature_set_codes),
+	(GeoGridCodelist, geo_grid_codes),
+	(AgencyScheme, agencies),
+	(DataProviderScheme, data_providers),
+	(DataConsumerScheme, data_consumers),
+	(MetadataProviderScheme, metadata_providers),
+	(OrganizationUnitScheme, organization_units),
+	(NamePersonalizationScheme, name_personalizations),
+	(ReportingTaxonomy, reporting_categories),
+	(CustomTypeScheme, custom_types),
+	(VtlMappingScheme, vtl_mappings),
+	(RulesetScheme, rulesets),
+	(TransformationScheme, transformations),
+	(UserDefinedOperatorsScheme, user_defined_operators),
 }
