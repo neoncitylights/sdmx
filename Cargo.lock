@@ -39,7 +39,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f3cb5ba0dc43242ce17de99c180e96db90b235b8a9fdc9543c96d2209116bd9f"
 
 [[package]]
-name = "sdmx"
+name = "sdmx_json"
 version = "0.1.0"
 dependencies = [
  "serde",
@@ -47,10 +47,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "sdmx-de-tests"
+name = "sdmx_json_de_tests"
 version = "0.1.0"
 dependencies = [
- "sdmx",
+ "sdmx_json",
  "serde_json",
 ]
 
