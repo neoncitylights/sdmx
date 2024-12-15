@@ -151,7 +151,7 @@ pub struct Error {
 pub struct Party {
 	pub id: String,
 	pub name: Option<String>,
-	pub names: LocalizedText,
+	pub names: Option<LocalizedText>,
 	pub contacts: Option<Vec<Contact>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]

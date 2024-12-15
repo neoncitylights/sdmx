@@ -41,6 +41,7 @@ mod tests {
 	use super::*;
 	use sdmx::data::DataMessage;
 	use sdmx::metadata::MetadataMessage;
+	use sdmx::structure::StructureMessage;
 
 	#[test]
 	#[cfg_attr(miri, ignore)]
@@ -77,10 +78,17 @@ mod tests {
 		assert!(file.is_ok());
 	}
 
-	// #[test]
-	// #[cfg_attr(miri, ignore)]
-	// fn test_structure_sample01() {
-	// 	let file = read_json::<MetadataMessage>(fixture!("structure_sample01.json"));
-	// 	println!("{:?}", file);
-	// }
+	#[test]
+	#[cfg_attr(miri, ignore)]
+	fn test_structure_sample01() {
+		let file = read_json::<StructureMessage>(fixture!("structure_sample01.json"));
+		assert!(file.is_ok());
+	}
+
+	#[test]
+	#[cfg_attr(miri, ignore)]
+	fn test_structure_sample02() {
+		let file = read_json::<StructureMessage>(fixture!("structure_sample02.json"));
+		assert!(file.is_ok());
+	}
 }
