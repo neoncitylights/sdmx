@@ -39,9 +39,9 @@ macro_rules! fixture {
 #[cfg(test)]
 mod tests {
 	use super::*;
-	use sdmx::data::DataMessage;
-	use sdmx::metadata::MetadataMessage;
-	use sdmx::structure::StructureMessage;
+	use sdmx_json::data::DataMessage;
+	use sdmx_json::metadata::MetadataMessage;
+	use sdmx_json::structure::StructureMessage;
 
 	#[test]
 	#[cfg_attr(miri, ignore)]

@@ -1,4 +1,4 @@
-# sdmx
+# sdmx_json
 
 [![License][license-badge]][license-url]
 [![CI][ci-badge]][ci-url]
@@ -19,7 +19,7 @@ A Rust implementation of SDMX-JSON (Statistical Data and Metadata eXchange) usin
 ## Install
 
 ```shell
-cargo add sdmx
+cargo add sdmx_json
 ```
 
 ## License
