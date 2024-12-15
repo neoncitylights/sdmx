@@ -1,5 +1,5 @@
 use crate::{
-	Action, Annotation, DataType, Link, LocalizedText, MetaManyReceivers, NumberOrString, SdmxValue
+	Action, Annotation, DataType, Link, LocalizedText, MetaManyReceivers, NumberOrString, SdmxValue,
 };
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
