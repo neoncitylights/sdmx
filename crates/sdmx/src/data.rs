@@ -6,7 +6,7 @@ use serde_json::Value;
 use std::collections::HashMap;
 use std::str::FromStr;
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct DataMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub meta: Option<MetaSingleReceiver>,
@@ -40,19 +40,19 @@ impl TryFrom<Value> for DataMessage {
 	}
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Data {
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub structures: Option<Structure>,
+	pub structures: Option<Vec<Structure>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub data_sets: Option<DataSet>,
+	pub data_sets: Option<Vec<DataSet>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Structure {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -64,7 +64,7 @@ pub struct Structure {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub datasets: Option<DataSet>,
+	pub dataset: Option<DataSet>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
@@ -74,7 +74,7 @@ pub type Dimensions = DimsMeasuresAttributes;
 pub type Measures = DimsMeasuresAttributes;
 pub type Attributes = DimsMeasuresAttributes;
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct DimsMeasuresAttributes {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -90,7 +90,7 @@ pub struct DimsMeasuresAttributes {
 	pub other: Option<HashMap<String, Value>>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Component {
 	pub id: String,
@@ -98,15 +98,15 @@ pub struct Component {
 	pub name: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub names: Option<LocalizedText>,
-	pub description: String,
+	pub description: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub descriptions: Option<LocalizedText>,
-	pub key_position: usize,
+	pub key_position: Option<usize>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub roles: Option<Vec<String>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_mandatory: Option<bool>,
-	pub relationship: AttributeRelationship,
+	pub relationship: Option<AttributeRelationship>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub format: Option<Format>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -116,7 +116,7 @@ pub struct Component {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<String>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub values: Option<Vec<ComponentValue>>,
+	pub values: Option<Vec<Option<ComponentValue>>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
@@ -176,7 +176,7 @@ pub struct Format {
 	pub other: Option<HashMap<String, Value>>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct ComponentValue {
 	pub id: String,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -185,7 +185,7 @@ pub struct ComponentValue {
 	pub names: Option<LocalizedText>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub values: Option<Vec<SdmxValue>>,
-	pub description: String,
+	pub description: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub descriptions: Option<LocalizedText>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -205,7 +205,7 @@ pub struct ComponentValue {
 	pub other: Option<HashMap<String, Value>>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct DataSet {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -227,13 +227,13 @@ pub struct DataSet {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub annotations: Option<Vec<Annotation>>,
+	pub annotations: Option<Vec<usize>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub attributes: Option<Vec<Attributes>>,
+	pub attributes: Option<Vec<SdmxValue>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub dimension_group_attributes: Option<SdmxObject>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub series: Option<Vec<Series>>,
+	pub series: Option<Series>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub observations: Option<SdmxObject>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -241,7 +241,7 @@ pub struct DataSet {
 	pub other: Option<HashMap<String, Value>>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct Series {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,

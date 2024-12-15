@@ -6,7 +6,7 @@ use serde_json::Value;
 use std::collections::HashMap;
 use std::str::FromStr;
 
-#[derive(Serialize, Deserialize, Default, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Default, Clone, PartialEq)]
 pub struct MetadataMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub meta: Option<MetaManyReceivers>,
@@ -40,7 +40,7 @@ impl TryFrom<Value> for MetadataMessage {
 	}
 }
 
-#[derive(Serialize, Deserialize, Default, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Default, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Data {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -50,7 +50,7 @@ pub struct Data {
 	pub other: Option<HashMap<String, Value>>,
 }
 
-#[derive(Serialize, Deserialize, Default, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Default, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataSet {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -93,7 +93,7 @@ pub struct MetadataSet {
 	pub other: Option<HashMap<String, Value>>,
 }
 
-#[derive(Serialize, Deserialize, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Clone, PartialEq)]
 pub struct Attributes {
 	pub id: String,
 	#[serde(skip_serializing_if = "Option::is_none")]

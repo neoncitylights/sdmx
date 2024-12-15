@@ -97,6 +97,10 @@ pub enum DataType {
 	Count,
 	InclusiveValueRange,
 	ExclusiveValueRange,
+	Incremental,
+	ObservationalTimePeriod,
+	StandardTimePeriod,
+	BasicTimePeriod,
 	GregorianTimePeriod,
 	GregorianYear,
 	GregorianYearMonth,
@@ -201,16 +205,18 @@ pub enum NumberOrString {
 	String(String),
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+#[serde(untagged)]
 pub enum SdmxValue {
 	String(String),
-	Number(isize),
+	Integer(isize),
+	Number(f64),
 	Boolean(bool),
 	LocalizedText(LocalizedText),
 	Array(Box<Vec<SdmxValue>>),
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct SdmxObject(pub HashMap<String, SdmxValue>);
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
