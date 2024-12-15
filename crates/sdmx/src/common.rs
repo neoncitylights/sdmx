@@ -4,9 +4,10 @@ use std::collections::HashMap;
 
 pub type LocalizedText = HashMap<String, String>;
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub struct Link {
-	pub href: String,
+	#[serde(flatten)]
+	pub location: Location,
 	pub rel: String,
 	pub url: Option<String>,
 	pub uri: Option<String>,
@@ -15,6 +16,13 @@ pub struct Link {
 	#[serde(rename = "type")]
 	pub type_: Option<String>,
 	pub hreflang: Option<String>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "lowercase")]
+pub enum Location {
+	Href(String),
+	Urn(String),
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Default)]
@@ -208,6 +216,7 @@ pub enum NumberOrString {
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 #[serde(untagged)]
 pub enum SdmxValue {
+	Null,
 	String(String),
 	Integer(isize),
 	Number(f64),
