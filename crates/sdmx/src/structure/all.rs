@@ -5,7 +5,7 @@ use serde_json::Value;
 use std::collections::HashMap;
 use std::str::FromStr;
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct StructureMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub meta: Option<MetaSingleReceiver>,

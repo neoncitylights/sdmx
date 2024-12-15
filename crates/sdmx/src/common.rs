@@ -133,9 +133,9 @@ pub enum DataType {
 	Xhtml,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct Error {
-	pub code: usize,
+	pub code: f64, // NOTE: Original schema specifies this as number instead of integer(?)
 	pub title: String,
 	pub titles: LocalizedText,
 	pub detail: String,
@@ -195,13 +195,13 @@ pub struct MetaManyReceivers {
 	pub prepared: String,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub content_languages: Option<Vec<String>>,
-	pub name: String,
+	pub name: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub names: Option<LocalizedText>,
 	pub sender: Sender,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub receivers: Option<Vec<Receiver>>,
-	pub links: Vec<Link>,
+	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,

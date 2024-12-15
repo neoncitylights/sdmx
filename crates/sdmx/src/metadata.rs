@@ -64,13 +64,14 @@ pub struct MetadataSet {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub reporting_year: Option<String>,
 	pub id: String,
+	#[serde(rename = "agencyID")]
 	pub agency_id: String,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub version: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_external_reference: Option<bool>,
-	pub metadataflow: String,
-	pub metadata_provision_agreement: String,
+	pub metadataflow: Option<String>,
+	pub metadata_provision_agreement: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub valid_from: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -100,8 +101,8 @@ pub struct Attributes {
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub format: Option<Format>,
-	pub value: SdmxValue,
-	pub attributes: Vec<Attributes>,
+	pub value: Option<SdmxValue>,
+	pub attributes: Option<Vec<Attributes>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
@@ -114,7 +115,7 @@ pub struct Format {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_sequence: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub interval: Option<String>,
+	pub interval: Option<isize>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub start_time: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -138,9 +139,9 @@ pub struct Format {
 	pub other: Option<HashMap<String, Value>>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Default, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Default, Clone, PartialEq)]
 pub struct StatusMessage {
-	pub code: usize,
+	pub code: f64, // NOTE: Original schema specifies this as number instead of integer(?)
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub title: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]

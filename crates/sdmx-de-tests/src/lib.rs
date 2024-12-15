@@ -53,21 +53,21 @@ mod tests {
 	#[cfg_attr(miri, ignore)]
 	fn test_data_sample02() {
 		let file = read_json::<DataMessage>(fixture!("data_sample02.json"));
-		println!("{:?}", file);
+		assert!(file.is_ok());
 	}
 
 	#[test]
 	#[cfg_attr(miri, ignore)]
 	fn test_metadata_sample01() {
 		let file = read_json::<MetadataMessage>(fixture!("metadata_sample01.json"));
-		println!("{:?}", file);
+		assert!(file.is_ok());
 	}
 
 	#[test]
 	#[cfg_attr(miri, ignore)]
 	fn test_metadata_sample02() {
 		let file = read_json::<MetadataMessage>(fixture!("metadata_sample02.json"));
-		println!("{:?}", file);
+		assert!(file.is_ok());
 	}
 
 	#[test]
@@ -76,4 +76,11 @@ mod tests {
 		let file = read_json::<MetadataMessage>(fixture!("metadata_sample03.json"));
 		println!("{:?}", file);
 	}
+
+	// #[test]
+	// #[cfg_attr(miri, ignore)]
+	// fn test_structure_sample01() {
+	// 	let file = read_json::<MetadataMessage>(fixture!("structure_sample01.json"));
+	// 	println!("{:?}", file);
+	// }
 }
