@@ -1,0 +1,4 @@
+# renamed crate `sdmx` to `sdmx_json`
+# renamed crate `sdmx-de-tests` to `sdmx_json_de_tests`
+# see https://github.com/neoncitylights/sdmx/pull/17
+b5cfe3a8c931da2cac1d696c0a767cb4e1a693ee
