@@ -30,6 +30,7 @@ pub struct MetadataRecord<'a> {
 	pub metadataset_id: &'a str,
 	// column only exists if labels=name
 	pub metadataset_name: Option<&'a str>,
+	// If column is not present, assume to be Information variant
 	pub action: Action,
 	pub target_types: Vec<&'a str>,
 	pub target_ids: Vec<&'a str>,
