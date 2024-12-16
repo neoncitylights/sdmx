@@ -1,6 +1,7 @@
 use crate::primitives::{Annotation, Link, LocalizedText};
 use crate::structure::Item;
 
+/// A primitive type defined within the SDMX Informational Model specification.
 pub trait Artefact {
 	fn id(&self) -> &String;
 	fn agency_id(&self) -> Option<&String>;
@@ -14,6 +15,9 @@ pub trait Artefact {
 	fn links(&self) -> Option<&Vec<Link>>;
 }
 
+/// A primitive type which may or may not contain
+/// zero or more items, where said items may either
+/// be a subset or full collection.
 pub trait ItemScheme {
 	fn is_partial(&self) -> Option<bool>;
 	fn items(&self) -> Option<&Vec<Item>>;

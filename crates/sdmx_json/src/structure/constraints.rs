@@ -4,6 +4,8 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
 
+/// A subset of the definition of the allowable (or available)
+/// content of a dataset.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct DataConstraint {
@@ -23,6 +25,8 @@ pub struct DataConstraint {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A subset of the definition of the allowable (or available)
+/// content of a metadata set.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataConstraint {
@@ -40,12 +44,16 @@ pub struct MetadataConstraint {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The purpose of a constraint, which informs the constraint
+/// if the data is actually present, or if it defines what
+/// data is allowed.
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Role {
 	Actual,
 	Allowed,
 }
 
+/// A collection of references to data-constrainable artefacts.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct ConstraintAttachment {
@@ -66,6 +74,7 @@ pub struct ConstraintAttachment {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A collection of references to metadata-constrainable artefacts.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataConstraintAttachment {
@@ -88,6 +97,8 @@ pub struct MetadataConstraintAttachment {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A data source which accepts a standard SDMX query message
+/// and responds appropriately.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct QueryableDataSource {
@@ -104,6 +115,7 @@ pub struct QueryableDataSource {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A subset of data within multi-dimensional data.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct CubeRegion {
@@ -122,6 +134,8 @@ pub struct CubeRegion {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The structure for providing values for data attributes,
+/// measures, or metadata attributes.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct ComponentValueSet {
@@ -139,6 +153,7 @@ pub struct ComponentValueSet {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A string or simple component value.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub enum StringOrScv {
@@ -146,6 +161,7 @@ pub enum StringOrScv {
 	SimpleComponent(SimpleComponentValue),
 }
 
+/// A time period value expressed as a range.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct TimeRangeValue {
@@ -162,6 +178,8 @@ pub struct TimeRangeValue {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A time period that describes whether a period
+/// is inclusive in a range.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct TimePeriodRange {
@@ -174,6 +192,7 @@ pub struct TimePeriodRange {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A simple value for a component.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct SimpleComponentValue {
@@ -190,13 +209,16 @@ pub struct SimpleComponentValue {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// Indicates whether a value should be cascaded.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub enum CascadeValues {
-	String(String),
+	Boolean(bool),
 	#[serde(rename = "excluderoot")]
 	ExcludeRoot,
 }
 
+/// A set of values for a dimension that defines
+/// a data cube region.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct CubeRegionKey {
@@ -218,6 +240,7 @@ pub struct CubeRegionKey {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A collection of full or partial data keys (dimension values).
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct DataKeySet {
@@ -228,6 +251,7 @@ pub struct DataKeySet {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A region which defines a distinct full or partial data key.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct DataKey {
@@ -247,6 +271,7 @@ pub struct DataKey {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A dimension value for the purpose of defining a distinct data key.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct DataKeyValue {
@@ -261,6 +286,8 @@ pub struct DataKeyValue {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The structure for providing values for data attributes,
+/// measures, or metadata attributes.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct DataComponentValueSet {
@@ -277,6 +304,7 @@ pub struct DataComponentValueSet {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A string or data component value.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub enum StringOrDcv {
@@ -284,6 +312,7 @@ pub enum StringOrDcv {
 	Dcv(DataComponentValue),
 }
 
+/// A simple value for a component.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct DataComponentValue {
@@ -297,6 +326,8 @@ pub struct DataComponentValue {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// Describes the report structure and the metadata target
+/// from that structure on which the region is based.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataTargetRegion {
@@ -317,6 +348,7 @@ pub struct MetadataTargetRegion {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// Describes the vaues provided for a metadata attribute.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataAttributeValueSet {
@@ -334,6 +366,7 @@ pub struct MetadataAttributeValueSet {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The timing of releases of the constrained data.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub struct ReleaseCalendar {
 	pub offset: String,

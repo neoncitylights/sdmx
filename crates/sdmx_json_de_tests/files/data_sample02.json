@@ -1,7 +1,7 @@
 {
 	"errors":[
 		{
-			"code":90483457.7170785,
+			"code":200,
 			"links":[
 				{
 					"href":"http://pUJaPHEeINvtthHXFshGsGCbxaW.szfPda3",
@@ -42,7 +42,7 @@
 			}
 		},
 		{
-			"code":-46883339.466014504,
+			"code":200,
 			"details":{
 				"vbbo-x-pis":"nostrud velit cillum"
 			},

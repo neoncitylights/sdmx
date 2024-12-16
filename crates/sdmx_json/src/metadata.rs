@@ -1,11 +1,14 @@
 use crate::primitives::{
-	Action, Annotation, DataType, Link, LocalizedText, MetaManyReceivers, NumberOrString, SdmxValue,
+	Action, Annotation, DataType, Link, LocalizedText, MetaManyReceivers, NumberOrString,
+	SdmxValue, StatusMessage,
 };
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
 use std::str::FromStr;
 
+/// The top-level type of a JSON file that conforms to the
+/// SDMX-JSON Metadata Message format.
 #[derive(Serialize, Deserialize, Debug, Default, Clone, PartialEq)]
 pub struct MetadataMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -40,6 +43,7 @@ impl TryFrom<Value> for MetadataMessage {
 	}
 }
 
+/// The associated data with a metadata message.
 #[derive(Serialize, Deserialize, Debug, Default, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Data {
@@ -50,6 +54,9 @@ pub struct Data {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A collection of reported metadata against a set of values
+/// for a given full or partial target identifier,
+/// as described in a metadata structure definition.
 #[derive(Serialize, Deserialize, Debug, Default, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataSet {
@@ -88,26 +95,29 @@ pub struct MetadataSet {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub descriptions: Option<LocalizedText>,
 	pub targets: Vec<String>,
-	pub attributes: Vec<Attributes>,
+	pub attributes: Vec<Attribute>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A reported metadata attribute value.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
-pub struct Attributes {
+pub struct Attribute {
 	pub id: String,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub annotations: Option<Vec<Annotation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub format: Option<Format>,
 	pub value: Option<SdmxValue>,
-	pub attributes: Option<Vec<Attributes>>,
+	pub attributes: Option<Vec<Attribute>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The representation for a component which describes
+/// the possible content for component values.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub struct Format {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -139,29 +149,4 @@ pub struct Format {
 	pub other: Option<HashMap<String, Value>>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Default, Clone, PartialEq)]
-pub struct StatusMessage {
-	pub code: f64, // NOTE: Original schema specifies this as number instead of integer(?)
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub title: Option<String>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub titles: Option<LocalizedText>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub detail: Option<String>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub details: Option<LocalizedText>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Vec<Link>>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	#[serde(flatten)]
-	pub other: Option<HashMap<String, Value>>,
-}
-
-impl_extendable!(
-	MetadataMessage,
-	Data,
-	MetadataSet,
-	Attributes,
-	Format,
-	StatusMessage,
-);
+impl_extendable!(MetadataMessage, Data, MetadataSet, Attribute, Format);

@@ -1,5 +1,5 @@
 use crate::primitives::{
-	Annotation, DataType, Error, Link, LocalizedText, MetaSingleReceiver, SentinelValue,
+	Annotation, DataType, Link, LocalizedText, MetaSingleReceiver, SentinelValue, StatusMessage,
 };
 use crate::structure::{CommonArtefactType, DataConstraint, MetadataConstraint};
 use serde::{Deserialize, Serialize};
@@ -7,6 +7,8 @@ use serde_json::Value;
 use std::collections::HashMap;
 use std::str::FromStr;
 
+/// The top-level type of a JSON file that conforms to the
+/// SDMX-JSON Structure Message format.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct StructureMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -14,7 +16,7 @@ pub struct StructureMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data: Option<Data>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub errors: Option<Vec<Error>>,
+	pub errors: Option<Vec<StatusMessage>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
@@ -41,6 +43,7 @@ impl TryFrom<Value> for StructureMessage {
 	}
 }
 
+/// The associated data with a structure message.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub struct Data {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -120,6 +123,13 @@ pub struct Data {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A primitive in the SDMX Informational Model which
+/// describes a concept.
+///
+/// **Note**: Since there are many variants which contain
+/// a somewhat large memory layout (and some much larger
+/// than others), every variant is boxed to ensure a smaller
+/// memory footprint for the entire enum.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub enum ArtefactType {
 	DataStructures(Box<DataStructure>),
@@ -160,6 +170,7 @@ pub enum ArtefactType {
 	UserDefinedOperatorSchemes(Box<UserDefinedOperatorsScheme>),
 }
 
+/// An abstract generic item within an item scheme.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub struct Item {
 	pub id: String,
@@ -180,6 +191,8 @@ pub struct Item {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A collection of metadata concepts, their structure
+/// and usage when used to collect or disseminate data.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct DataStructure {
@@ -194,6 +207,8 @@ pub struct DataStructure {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A structure of the grouping to the sets of structural concepts
+/// that have a defined structural role in the data structure definition.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct DataStructureComponents {
@@ -209,6 +224,7 @@ pub struct DataStructureComponents {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A list of attributes in the data structure definition.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct AttributeList {
@@ -226,6 +242,7 @@ pub struct AttributeList {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A characteristic of an object or entity.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct Attribute {
@@ -246,6 +263,7 @@ pub struct Attribute {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// Indicates whether something is required or optional.
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq)]
 #[serde(rename_all = "lowercase")]
 pub enum Usage {
@@ -253,6 +271,8 @@ pub enum Usage {
 	Optional,
 }
 
+/// The association between an attribute and other
+/// data structure definition components.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct AttributeRelationship {
@@ -271,6 +291,7 @@ pub struct AttributeRelationship {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The data representation of an attribute.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct LocalRepresentation {
@@ -289,12 +310,17 @@ pub struct LocalRepresentation {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The max occurrences of something, which can either
+/// be an unsigned integer or unbounded (can occur without
+/// any upper limit).
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub enum MaxOccurs {
 	Signed(usize),
 	Unbounded,
 }
 
+/// A restricted version of [`Format`] that only allows facets
+/// and text types applicable to codes.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct EnumerationFormat {
@@ -329,6 +355,9 @@ pub struct EnumerationFormat {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The information for describing a range of data formats
+/// restricted to the representations allowed for all components
+/// except for target objects.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct Format {
@@ -364,6 +393,8 @@ pub struct Format {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// Defines how a metadata attribute is used within
+/// a data structure.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataAttributeUsage {
@@ -378,6 +409,8 @@ pub struct MetadataAttributeUsage {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// Defines the order in which child dimensions will
+/// appear in data formats.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct DimensionList {
@@ -396,6 +429,8 @@ pub struct DimensionList {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A dimension which represents a statistical series,
+/// such as a time series.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct Dimension {
@@ -416,6 +451,7 @@ pub struct Dimension {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A statistical series representing time.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct TimeDimension {
@@ -432,6 +468,8 @@ pub struct TimeDimension {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A representation of a time dimension, which may contain
+/// sentinel values.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct TimeDimensionFormat {
@@ -446,6 +484,7 @@ pub struct TimeDimensionFormat {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The specific data type of a time dimension.
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq)]
 pub enum TimeDimensionDataType {
 	ObservationalTimePeriod,
@@ -519,6 +558,8 @@ impl TryFrom<DataType> for TimeDimensionDataType {
 	}
 }
 
+/// Specifies attribute values which have the same value
+/// based on some common dimensionality.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct Group {
@@ -534,6 +575,8 @@ pub struct Group {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// Describes the structure of the measure descriptor
+/// for a data structure definition.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub struct MeasureList {
 	pub id: String,
@@ -548,6 +591,8 @@ pub struct MeasureList {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A concept that quantifies the size, amount
+/// or degree of something.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct Measure {
@@ -566,6 +611,8 @@ pub struct Measure {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A collection of metadata concepts and their structure
+/// when used to collect or disseminate reference metadata.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataStructure {
@@ -578,6 +625,7 @@ pub struct MetadataStructure {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A set of components that makeup the metadata structure.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataStructureComponents {
@@ -588,6 +636,8 @@ pub struct MetadataStructureComponents {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A set of metadata attributes that can be defined
+/// as a hierarchy.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataAttributeList {
@@ -603,6 +653,7 @@ pub struct MetadataAttributeList {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A metadata characteristic of an object or entity.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataAttribute {
@@ -626,6 +677,7 @@ pub struct MetadataAttribute {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for a category.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct CategoryScheme {
@@ -640,6 +692,7 @@ pub struct CategoryScheme {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for a concept.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct ConceptScheme {
@@ -660,6 +713,7 @@ pub struct ConceptScheme {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A core representation for a concept.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct CoreRepresentation {
@@ -678,6 +732,7 @@ pub struct CoreRepresentation {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A reference to an ISO 11179 concept.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct IsoConceptReference {
@@ -689,6 +744,7 @@ pub struct IsoConceptReference {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for a codelist.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct Codelist {
@@ -705,6 +761,7 @@ pub struct Codelist {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for a geography codelist.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct GeographyCodelist {
@@ -719,6 +776,7 @@ pub struct GeographyCodelist {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for a geographic grid codelist.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct GeoGridCodelist {
@@ -733,6 +791,7 @@ pub struct GeoGridCodelist {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for an agency.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct AgencyScheme {
@@ -747,6 +806,7 @@ pub struct AgencyScheme {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for a data provider.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct DataProviderScheme {
@@ -761,6 +821,7 @@ pub struct DataProviderScheme {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for a data consumer.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct DataConsumerScheme {
@@ -775,6 +836,7 @@ pub struct DataConsumerScheme {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for a metadata provider.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataProviderScheme {
@@ -789,6 +851,7 @@ pub struct MetadataProviderScheme {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for an organization unit.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct OrganizationUnitScheme {
@@ -803,6 +866,8 @@ pub struct OrganizationUnitScheme {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The structure of data that will be provided for
+/// different reference periods.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct Dataflow {
@@ -815,6 +880,7 @@ pub struct Dataflow {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for name personalization.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct NamePersonalizationScheme {
@@ -829,6 +895,7 @@ pub struct NamePersonalizationScheme {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for a reporting taxonomy.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct ReportingTaxonomy {
@@ -843,6 +910,7 @@ pub struct ReportingTaxonomy {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// Describes what something (the source) falls under (the target).
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct Categorization {
@@ -857,6 +925,7 @@ pub struct Categorization {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for a custom type.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct CustomTypeScheme {
@@ -871,6 +940,8 @@ pub struct CustomTypeScheme {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for a VTL (Validation and Transformation Language)
+/// mapping.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct VtlMappingScheme {
@@ -885,6 +956,7 @@ pub struct VtlMappingScheme {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for a ruleset.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct RulesetScheme {
@@ -899,6 +971,7 @@ pub struct RulesetScheme {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for a transformation.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct TransformationScheme {
@@ -913,6 +986,7 @@ pub struct TransformationScheme {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The item scheme for a user defined operator.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct UserDefinedOperatorsScheme {

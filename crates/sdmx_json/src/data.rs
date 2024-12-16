@@ -1,12 +1,14 @@
 use crate::primitives::{
-	Action, Annotation, DataType, Error, Link, LocalizedText, MetaSingleReceiver, NumberOrString,
-	SdmxObject, SdmxValue,
+	Action, Annotation, DataType, Link, LocalizedText, MetaSingleReceiver, NumberOrString,
+	SdmxValue, StatusMessage,
 };
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
 use std::str::FromStr;
 
+/// The top-level type of a JSON file that conforms to the
+/// SDMX-JSON Data Message format.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct DataMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -14,7 +16,7 @@ pub struct DataMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data: Option<Data>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub error: Option<Error>,
+	pub error: Option<StatusMessage>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
@@ -41,6 +43,7 @@ impl TryFrom<Value> for DataMessage {
 	}
 }
 
+/// The associated data with a data message.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Data {
@@ -53,6 +56,8 @@ pub struct Data {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The structural metadata for interpreting the data contained
+/// in the message.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Structure {
@@ -71,10 +76,15 @@ pub struct Structure {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A short, convenient type alias to [`DimsMeasuresAttributes`].
 pub type Dimensions = DimsMeasuresAttributes;
+/// A short, convenient type alias to [`DimsMeasuresAttributes`].
 pub type Measures = DimsMeasuresAttributes;
+/// A short, convenient type alias to [`DimsMeasuresAttributes`].
 pub type Attributes = DimsMeasuresAttributes;
 
+/// An object which either represents multiple dimensions,
+/// multiple measures, or multiple attributes.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct DimsMeasuresAttributes {
@@ -91,6 +101,7 @@ pub struct DimsMeasuresAttributes {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A dimension, measure, or attribute used in the message.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Component {
@@ -123,6 +134,8 @@ pub struct Component {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The relationship between an attribute and other data structure
+/// definition components as defined in the data structure definition.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct AttributeRelationship {
@@ -141,6 +154,7 @@ pub struct AttributeRelationship {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// The representation for a component.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Format {
@@ -177,6 +191,7 @@ pub struct Format {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A particular value for a component in a message.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct ComponentValue {
 	pub id: String,
@@ -206,6 +221,9 @@ pub struct ComponentValue {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A collection of observations with meta-information
+/// about the dataset (when it was published, reported,
+/// how long the dataset is valid, etc).
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct DataSet {
@@ -232,24 +250,25 @@ pub struct DataSet {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub attributes: Option<Vec<SdmxValue>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub dimension_group_attributes: Option<SdmxObject>,
+	pub dimension_group_attributes: Option<HashMap<String, Vec<SdmxValue>>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub series: Option<Series>,
+	pub series: Option<HashMap<String, Series>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub observations: Option<SdmxObject>,
+	pub observations: Option<HashMap<String, Vec<SdmxValue>>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A set of data points.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct Series {
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub annotations: Option<Vec<Annotation>>,
+	pub annotations: Option<Vec<usize>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub attributes: Option<Vec<SdmxValue>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub observations: Option<SdmxObject>,
+	pub observations: Option<HashMap<String, Vec<SdmxValue>>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,

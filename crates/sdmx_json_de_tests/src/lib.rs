@@ -47,48 +47,48 @@ mod tests {
 	#[cfg_attr(miri, ignore)]
 	fn test_data_sample01() {
 		let file = read_json::<DataMessage>(fixture!("data_sample01.json"));
-		assert!(file.is_ok());
+		assert!(file.is_ok(), "{:?}", file);
 	}
 
 	#[test]
 	#[cfg_attr(miri, ignore)]
 	fn test_data_sample02() {
 		let file = read_json::<DataMessage>(fixture!("data_sample02.json"));
-		assert!(file.is_ok());
+		assert!(file.is_ok(), "{:?}", file);
 	}
 
 	#[test]
 	#[cfg_attr(miri, ignore)]
 	fn test_metadata_sample01() {
 		let file = read_json::<MetadataMessage>(fixture!("metadata_sample01.json"));
-		assert!(file.is_ok());
+		assert!(file.is_ok(), "{:?}", file);
 	}
 
 	#[test]
 	#[cfg_attr(miri, ignore)]
 	fn test_metadata_sample02() {
 		let file = read_json::<MetadataMessage>(fixture!("metadata_sample02.json"));
-		assert!(file.is_ok());
+		assert!(file.is_ok(), "{:?}", file);
 	}
 
 	#[test]
 	#[cfg_attr(miri, ignore)]
 	fn test_metadata_sample03() {
 		let file = read_json::<MetadataMessage>(fixture!("metadata_sample03.json"));
-		assert!(file.is_ok());
+		assert!(file.is_ok(), "{:?}", file);
 	}
 
 	#[test]
 	#[cfg_attr(miri, ignore)]
 	fn test_structure_sample01() {
 		let file = read_json::<StructureMessage>(fixture!("structure_sample01.json"));
-		assert!(file.is_ok());
+		assert!(file.is_ok(), "{:?}", file);
 	}
 
 	#[test]
 	#[cfg_attr(miri, ignore)]
 	fn test_structure_sample02() {
 		let file = read_json::<StructureMessage>(fixture!("structure_sample02.json"));
-		assert!(file.is_ok());
+		assert!(file.is_ok(), "{:?}", file);
 	}
 }
