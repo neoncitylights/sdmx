@@ -17,7 +17,26 @@ pub struct DataRecord<'a> {
 	// if option key=series|obs|both (or: ky != None)
 	pub series_key: Option<&'a str>,
 	pub obs_key: Option<&'a str>,
+	pub components: HashMap<usize, &'a str>,
 	pub other: HashMap<usize, &'a str>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct MetadataRecord<'a> {
+	pub md_structure: Structure,
+	pub md_structure_id: StructureId<'a>,
+	// column only exists if labels=name
+	pub md_structure_name: Option<StructureName<'a>>,
+	pub metadataset_id: &'a str,
+	// column only exists if labels=name
+	pub metadataset_name: Option<&'a str>,
+	pub action: Action,
+	pub target_types: Vec<&'a str>,
+	pub target_ids: Vec<&'a str>,
+	// column only exists if labels=name
+	pub target_names: Option<&'a str>,
+	pub components: HashMap<usize, &'a str>,
+	pub others: HashMap<usize, &'a str>,
 }
 
 /// The type of structure for the given CSV record.
