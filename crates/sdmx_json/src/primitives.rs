@@ -309,6 +309,7 @@ pub struct MetaManyReceivers {
 	pub sender: Sender,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub receivers: Option<Vec<Receiver>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
