@@ -9,7 +9,7 @@ use std::collections::HashMap;
 pub struct DataConstraint {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
-	pub role: String,
+	pub role: Role,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub constraint_attachment: Option<ConstraintAttachment>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -28,7 +28,7 @@ pub struct DataConstraint {
 pub struct MetadataConstraint {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
-	pub role: String,
+	pub role: Role,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub constraint_attachment: Option<MetadataConstraintAttachment>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -38,6 +38,12 @@ pub struct MetadataConstraint {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Role {
+	Actual,
+	Allowed,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
