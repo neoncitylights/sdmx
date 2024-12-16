@@ -1,5 +1,5 @@
 use crate::primitives::{
-	Annotation, DataType, Error, Link, LocalizedText, MetaSingleReceiver, SentinelValue,
+	Annotation, DataType, Link, LocalizedText, MetaSingleReceiver, SentinelValue, StatusMessage,
 };
 use crate::structure::{CommonArtefactType, DataConstraint, MetadataConstraint};
 use serde::{Deserialize, Serialize};
@@ -14,7 +14,7 @@ pub struct StructureMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data: Option<Data>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub errors: Option<Vec<Error>>,
+	pub errors: Option<Vec<StatusMessage>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,

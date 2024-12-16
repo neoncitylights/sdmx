@@ -500,7 +500,7 @@
 	},
 	"errors":[
 		{
-			"code":96529995.76208287,
+			"code":200,
 			"title":"Title contains the title of the message, in best-match language value. A short, human-readable localised summary of the status that SHOULD NOT change from occurrence to occurrence of the status, except for purposes of localization.",
 			"details":{
 				"fr":"Detail contains the detailed text of the message, in parallel language values. A list of human-readable localised explanations specific to this occurrence of the status. Like title, this field’s value can be localized. It is fully customizable by the service providers and should provide enough detail to ease understanding the reasons of the status."
@@ -520,7 +520,7 @@
 			"detail":"Detail contains the detailed text of the message, in best-match language value. A human-readable localised explanation specific to this occurrence of the status. Like title, this field’s value can be localized. It is fully customizable by the service providers and should provide enough detail to ease understanding the reasons of the status."
 		},
 		{
-			"code":67157557.70123723,
+			"code":200,
 			"detail":"Detail contains the detailed text of the message, in best-match language value. A human-readable localised explanation specific to this occurrence of the status. Like title, this field’s value can be localized. It is fully customizable by the service providers and should provide enough detail to ease understanding the reasons of the status.",
 			"details":{
 				"en":"Detail contains the detailed text of the message, in parallel language values. A list of human-readable localised explanations specific to this occurrence of the status. Like title, this field’s value can be localized. It is fully customizable by the service providers and should provide enough detail to ease understanding the reasons of the status."
@@ -528,7 +528,7 @@
 			"title":"Title contains the title of the message, in best-match language value. A short, human-readable localised summary of the status that SHOULD NOT change from occurrence to occurrence of the status, except for purposes of localization."
 		},
 		{
-			"code":-13299148.194488943,
+			"code":200,
 			"title":"Title contains the title of the message, in best-match language value. A short, human-readable localised summary of the status that SHOULD NOT change from occurrence to occurrence of the status, except for purposes of localization.",
 			"links":[
 				{
