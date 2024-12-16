@@ -10,11 +10,12 @@
 [security-badge]: https://img.shields.io/github/actions/workflow/status/neoncitylights/sdmx/.github/workflows/main.yml?style=flat-square
 [security-url]: https://github.com/neoncitylights/sdmx/actions/workflows/security-audit.yml
 
-This monorepo provides Rust-related crates to SDMX (Statistical Data and Metadata eXchange). At the moment, this currently implements [SDMX-JSON](https://github.com/sdmx-twg/sdmx-json), and may provide a crate for [SDMX-ML](https://github.com/sdmx-twg/sdmx-ml) in the future.
+This monorepo provides Rust-related crates to SDMX (Statistical Data and Metadata eXchange). At the moment, this currently implements [SDMX-JSON](https://github.com/sdmx-twg/sdmx-json) and [SDMX-CSV](https://github.com/sdmx-twg/sdmx-csv), and may provide a crate for [SDMX-ML](https://github.com/sdmx-twg/sdmx-ml) in the future.
 
-| Crate     | crates.io | docs.rs |
-| --------- | --------- | ------- |
-| [`sdmx_json`](./crates/sdmx_json) | [crates.io](https://crates.io/crates/sdmx_json) | [docs.rs](https://docs.rs/sdmx_json) |
+| Crate     | Status | crates.io | docs.rs |
+| --------- | ------ | --------- | ------- |
+| [`sdmx_json`](./crates/sdmx_json) | Beta stage | [crates.io](https://crates.io/crates/sdmx_json) | [docs.rs](https://docs.rs/sdmx_json) |
+| [`sdmx_csv`](./crates/sdmx_csv) | Alpha stage | *N/A* | *N/A* |
 
 ## License
 Licensed under either of
