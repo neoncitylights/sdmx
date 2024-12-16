@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.2.0 (Unreleased)
+## v0.2.0 (2024-12-16)
 
 ### Breaking changes
 - metadata: The type `Attributes` is now correctly named `Attribute`.
