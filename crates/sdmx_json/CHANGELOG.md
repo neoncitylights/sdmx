@@ -16,7 +16,7 @@
 - primitives: In `MetaSingleReceiver`, the field `name` will no longer serialize if it is a `None` variant.
 
 ### Documentation
-- All modules and symbols now have top-level documentation.
+- All modules and symbols now have top-level documentation. Some symbols have a somewhat basic description, and will be improved upon in the future.
 
 ## v0.1.0 (2024-12-15)
 
