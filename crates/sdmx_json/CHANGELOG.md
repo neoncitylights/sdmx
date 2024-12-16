@@ -1,5 +1,5 @@
 # Changelog
 
-## 0.1.0 (YYYY-MM-DD)
+## v0.1.0 (2024-12-15)
 
-- Initial release of the sdmx library
+- Initial release of the sdmx_json library
