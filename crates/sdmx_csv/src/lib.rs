@@ -21,6 +21,7 @@ pub struct DataRecord<'a> {
 	pub other: HashMap<usize, &'a str>,
 }
 
+/// A CSV record for an SDMX-CSV Metadata Message.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct MetadataRecord<'a> {
 	pub md_structure: Structure,
