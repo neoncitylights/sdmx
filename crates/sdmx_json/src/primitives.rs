@@ -343,7 +343,8 @@ pub enum SdmxValue {
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct SdmxObject(pub HashMap<String, SdmxValue>);
 
-/// A reserved value within an associated data domain.
+/// A reserved value within an associated data domain and
+/// some semantic meaning.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct SentinelValue {
