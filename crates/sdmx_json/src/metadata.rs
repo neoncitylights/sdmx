@@ -9,7 +9,7 @@ use std::str::FromStr;
 
 /// The top-level type of a JSON file that conforms to the
 /// SDMX-JSON Metadata Message format.
-#[derive(Serialize, Deserialize, Debug, Default, Clone, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct MetadataMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub meta: Option<MetaManyReceivers>,
@@ -44,7 +44,7 @@ impl TryFrom<Value> for MetadataMessage {
 }
 
 /// The associated data with a metadata message.
-#[derive(Serialize, Deserialize, Debug, Default, Clone, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Data {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -57,7 +57,7 @@ pub struct Data {
 /// A collection of reported metadata against a set of values
 /// for a given full or partial target identifier,
 /// as described in a metadata structure definition.
-#[derive(Serialize, Deserialize, Debug, Default, Clone, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataSet {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -102,7 +102,7 @@ pub struct MetadataSet {
 }
 
 /// A reported metadata attribute value.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct Attribute {
 	pub id: String,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -118,7 +118,7 @@ pub struct Attribute {
 
 /// The representation for a component which describes
 /// the possible content for component values.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct Format {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data_type: Option<DataType>,

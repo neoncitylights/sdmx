@@ -264,7 +264,7 @@ pub type Receiver = Party;
 /// Non-standard information and basic technical information
 /// associated with a message, which may have a single receiver
 /// (but no more than one).
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct MetaSingleReceiver {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -291,7 +291,7 @@ pub struct MetaSingleReceiver {
 /// Non-standard information and basic technical information
 /// associated with a message, which may have multiple
 /// receivers.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct MetaManyReceivers {
 	#[serde(skip_serializing_if = "Option::is_none")]

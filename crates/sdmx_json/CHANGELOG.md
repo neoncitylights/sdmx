@@ -6,7 +6,10 @@
 - structure: The definition of the `AttributeRelationship` type is now more closely aligned with the original JSON schema for structure messages, which can only be a single variant of something at a time.
 
 ### Features
-- structure: `StructureMessage` now implements the `Default` trait.
+- The following types now implement the `Default` trait:
+  - metadata: `Attribute`, `Format`
+  - primitives: `MetaManyReceivers`, `MetaSingleReceiver`
+  - structure: `AgencyScheme`, `AttributeList`, `CommonArtefactType`, `ComponentValueSet`, `ConstraintAttachment`, `CoreRepresentation`, `CubeRegionKey`, `CubeRegion`, `CustomTypeScheme`, `DataComponentValueSet`, `DataComponentValue`, `DataKeyValue`, `DataKey`, `DataProviderScheme`, `DataStructureComponents`, `DataStructure`, `Data`, `Dataflow`, `DimensionList`, `EnumerationFormat`, `Group`, `IsoConceptReference`, `Item`, `LocalRepresentation`, `MeasureList`, `MetadataAttributeList`, `MetadataAttributeValueSet`, `MetadataAttribute`, `MetadataConstraintAttachment`, `MetadataTargetRegion`, `OrganizationUnitScheme`, `ReleaseCalendar`, `TimeDimension`, `TimePeriodRange`, `TimeRangeValue`, `TransformationScheme`, `UserDefinedOperatorsScheme`, `VtlMappingScheme`
 
 ## v0.2.0 (2024-12-16)
 
