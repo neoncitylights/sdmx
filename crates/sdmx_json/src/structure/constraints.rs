@@ -54,7 +54,7 @@ pub enum Role {
 }
 
 /// A collection of references to data-constrainable artefacts.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct ConstraintAttachment {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -75,7 +75,7 @@ pub struct ConstraintAttachment {
 }
 
 /// A collection of references to metadata-constrainable artefacts.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataConstraintAttachment {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -116,7 +116,7 @@ pub struct QueryableDataSource {
 }
 
 /// A subset of data within multi-dimensional data.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct CubeRegion {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -136,7 +136,7 @@ pub struct CubeRegion {
 
 /// The structure for providing values for data attributes,
 /// measures, or metadata attributes.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct ComponentValueSet {
 	pub id: String,
@@ -162,7 +162,7 @@ pub enum StringOrScv {
 }
 
 /// A time period value expressed as a range.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct TimeRangeValue {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -180,7 +180,7 @@ pub struct TimeRangeValue {
 
 /// A time period that describes whether a period
 /// is inclusive in a range.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct TimePeriodRange {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -219,7 +219,7 @@ pub enum CascadeValues {
 
 /// A set of values for a dimension that defines
 /// a data cube region.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct CubeRegionKey {
 	pub id: String,
@@ -241,7 +241,7 @@ pub struct CubeRegionKey {
 }
 
 /// A collection of full or partial data keys (dimension values).
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct DataKeySet {
 	pub is_included: bool,
@@ -252,7 +252,7 @@ pub struct DataKeySet {
 }
 
 /// A region which defines a distinct full or partial data key.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct DataKey {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -272,7 +272,7 @@ pub struct DataKey {
 }
 
 /// A dimension value for the purpose of defining a distinct data key.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct DataKeyValue {
 	pub id: String,
@@ -288,7 +288,7 @@ pub struct DataKeyValue {
 
 /// The structure for providing values for data attributes,
 /// measures, or metadata attributes.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct DataComponentValueSet {
 	pub id: String,
@@ -313,7 +313,7 @@ pub enum StringOrDcv {
 }
 
 /// A simple value for a component.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct DataComponentValue {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -328,7 +328,7 @@ pub struct DataComponentValue {
 
 /// Describes the report structure and the metadata target
 /// from that structure on which the region is based.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataTargetRegion {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -349,7 +349,7 @@ pub struct MetadataTargetRegion {
 }
 
 /// Describes the vaues provided for a metadata attribute.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataAttributeValueSet {
 	pub id: String,
@@ -367,7 +367,7 @@ pub struct MetadataAttributeValueSet {
 }
 
 /// The timing of releases of the constrained data.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct ReleaseCalendar {
 	pub offset: String,
 	pub periodicity: String,

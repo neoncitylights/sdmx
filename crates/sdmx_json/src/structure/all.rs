@@ -44,7 +44,7 @@ impl TryFrom<Value> for StructureMessage {
 }
 
 /// The associated data with a structure message.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct Data {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data_structures: Option<Vec<DataStructure>>,
@@ -171,7 +171,7 @@ pub enum ArtefactType {
 }
 
 /// An abstract generic item within an item scheme.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct Item {
 	pub id: String,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -193,7 +193,7 @@ pub struct Item {
 
 /// A collection of metadata concepts, their structure
 /// and usage when used to collect or disseminate data.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct DataStructure {
 	#[serde(flatten)]
@@ -209,7 +209,7 @@ pub struct DataStructure {
 
 /// A structure of the grouping to the sets of structural concepts
 /// that have a defined structural role in the data structure definition.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct DataStructureComponents {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -225,7 +225,7 @@ pub struct DataStructureComponents {
 }
 
 /// A list of attributes in the data structure definition.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct AttributeList {
 	pub id: String,
@@ -312,7 +312,7 @@ pub struct AttributeRelationshipObservations {
 }
 
 /// The data representation of an attribute.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct LocalRepresentation {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -341,7 +341,7 @@ pub enum MaxOccurs {
 
 /// A restricted version of [`Format`] that only allows facets
 /// and text types applicable to codes.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct EnumerationFormat {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -431,7 +431,7 @@ pub struct MetadataAttributeUsage {
 
 /// Defines the order in which child dimensions will
 /// appear in data formats.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct DimensionList {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -472,7 +472,7 @@ pub struct Dimension {
 }
 
 /// A statistical series representing time.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct TimeDimension {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -580,7 +580,7 @@ impl TryFrom<DataType> for TimeDimensionDataType {
 
 /// Specifies attribute values which have the same value
 /// based on some common dimensionality.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Group {
 	pub id: String,
@@ -597,7 +597,7 @@ pub struct Group {
 
 /// Describes the structure of the measure descriptor
 /// for a data structure definition.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct MeasureList {
 	pub id: String,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -658,7 +658,7 @@ pub struct MetadataStructureComponents {
 
 /// A set of metadata attributes that can be defined
 /// as a hierarchy.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataAttributeList {
 	pub id: String,
@@ -674,7 +674,7 @@ pub struct MetadataAttributeList {
 }
 
 /// A metadata characteristic of an object or entity.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct MetadataAttribute {
 	pub id: String,
@@ -734,7 +734,7 @@ pub struct ConceptScheme {
 }
 
 /// A core representation for a concept.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct CoreRepresentation {
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -753,7 +753,7 @@ pub struct CoreRepresentation {
 }
 
 /// A reference to an ISO 11179 concept.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct IsoConceptReference {
 	pub concept_agency: String,
@@ -812,7 +812,7 @@ pub struct GeoGridCodelist {
 }
 
 /// The item scheme for an agency.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct AgencyScheme {
 	#[serde(flatten)]
@@ -827,7 +827,7 @@ pub struct AgencyScheme {
 }
 
 /// The item scheme for a data provider.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct DataProviderScheme {
 	#[serde(flatten)]
@@ -872,7 +872,7 @@ pub struct MetadataProviderScheme {
 }
 
 /// The item scheme for an organization unit.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct OrganizationUnitScheme {
 	#[serde(flatten)]
@@ -888,7 +888,7 @@ pub struct OrganizationUnitScheme {
 
 /// The structure of data that will be provided for
 /// different reference periods.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Dataflow {
 	#[serde(flatten)]
@@ -946,7 +946,7 @@ pub struct Categorization {
 }
 
 /// The item scheme for a custom type.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct CustomTypeScheme {
 	#[serde(flatten)]
@@ -962,7 +962,7 @@ pub struct CustomTypeScheme {
 
 /// The item scheme for a VTL (Validation and Transformation Language)
 /// mapping.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct VtlMappingScheme {
 	#[serde(flatten)]
@@ -992,7 +992,7 @@ pub struct RulesetScheme {
 }
 
 /// The item scheme for a transformation.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct TransformationScheme {
 	#[serde(flatten)]
@@ -1007,7 +1007,7 @@ pub struct TransformationScheme {
 }
 
 /// The item scheme for a user defined operator.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct UserDefinedOperatorsScheme {
 	#[serde(flatten)]
