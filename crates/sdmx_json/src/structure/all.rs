@@ -9,7 +9,7 @@ use std::str::FromStr;
 
 /// The top-level type of a JSON file that conforms to the
 /// SDMX-JSON Structure Message format.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct StructureMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub meta: Option<MetaSingleReceiver>,
@@ -275,18 +275,38 @@ pub enum Usage {
 /// data structure definition components.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
-pub struct AttributeRelationship {
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub dataflow: Option<()>, // TODO fix this
-	#[serde(skip_serializing_if = "Option::is_none")]
+pub enum AttributeRelationship {
+	DataFlow(AttributeRelationshipDataFlow),
+	Dimensions(AttributeRelationshipDimensions),
+	Groups(AttributeRelationshipGroups),
+	Observations(AttributeRelationshipObservations),
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+pub struct AttributeRelationshipDataFlow {
+	pub dataflow: (), // This is intentionally an empty type
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+pub struct AttributeRelationshipDimensions {
 	pub dimensions: Option<Vec<String>>,
-	#[serde(skip_serializing_if = "Option::is_none")]
 	pub are_dimensions_optional: Option<Vec<bool>>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub group: Option<String>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub observation: Option<()>, // TODO fix this
-	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+pub struct AttributeRelationshipGroups {
+	pub group: String,
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+pub struct AttributeRelationshipObservations {
+	pub observation: (), // This is intentionally an empty type
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
 }
@@ -1009,7 +1029,10 @@ impl_extendable!(
 	DataStructureComponents,
 	AttributeList,
 	Attribute,
-	AttributeRelationship,
+	AttributeRelationshipDataFlow,
+	AttributeRelationshipDimensions,
+	AttributeRelationshipGroups,
+	AttributeRelationshipObservations,
 	EnumerationFormat,
 	Format,
 	MetadataAttributeUsage,

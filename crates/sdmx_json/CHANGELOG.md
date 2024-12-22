@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.0 (2024-12-22)
+
+### Breaking changes
+- structure: The definition of the `AttributeRelationship` type is now more closely aligned with the original JSON schema for structure messages, which can only be a single variant of something at a time.
+
 ## v0.2.0 (2024-12-16)
 
 ### Breaking changes
