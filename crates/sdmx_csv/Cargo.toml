@@ -1,6 +1,6 @@
 [package]
 name = "sdmx_csv"
-version = "0.3.0"
+version = "0.2.0"
 authors = ["Samantha Nguyen <contact@samanthanguyen.me>"]
 description = "A Rust implementation of SDMX-CSV (Statistical Data and Metadata eXchange) using Serde"
 readme = "README.md"
