@@ -276,19 +276,24 @@ pub enum Usage {
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub enum AttributeRelationship {
-	DataFlow(AttributeRelationshipDataFlow),
+	DataFlow(AttributeRelationshipDataflow),
 	Dimensions(AttributeRelationshipDimensions),
 	Groups(AttributeRelationshipGroups),
 	Observations(AttributeRelationshipObservations),
 }
 
+/// A type of relationship where the attribute value varies per dataflow.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
-pub struct AttributeRelationshipDataFlow {
-	pub dataflow: (), // This is intentionally an empty type
+pub struct AttributeRelationshipDataflow {
+	/// This is intentionally an empty type.
+	pub dataflow: (),
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A type of relationship where the attribute references dimensions
+/// in the data structure definition. The attribute can either be a
+/// group, series/section, or an observational attribute.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct AttributeRelationshipDimensions {
 	pub dimensions: Option<Vec<String>>,
@@ -297,6 +302,8 @@ pub struct AttributeRelationshipDimensions {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A type of relationship where the attribute references
+/// a unique group identifier.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct AttributeRelationshipGroups {
 	pub group: String,
@@ -304,9 +311,13 @@ pub struct AttributeRelationshipGroups {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+/// A type of relationship where the attribute value may vary
+/// with any of the local dimensions, and thus is dependent
+/// upon the observed value.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct AttributeRelationshipObservations {
-	pub observation: (), // This is intentionally an empty type
+	/// This is intentionally an empty type.
+	pub observation: (),
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
 }
@@ -1051,7 +1062,7 @@ impl_extendable!(
 	DataStructureComponents,
 	AttributeList,
 	Attribute,
-	AttributeRelationshipDataFlow,
+	AttributeRelationshipDataflow,
 	AttributeRelationshipDimensions,
 	AttributeRelationshipGroups,
 	AttributeRelationshipObservations,

@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.5.0 (Unreleased)
+
+### Breaking changes
+- structure: The type `AttributeRelationshipDataFlow` was renamed to `AttributeRelationshipDataflow` (lowercased F in dataflow) to be consistent with the `Dataflow` type.
+
+### Documentation
+- structure: The following types now have top-level documentation:
+  - `AttributeRelationshipDataflow`
+  - `AttributeRelationshipDimensions`
+  - `AttributeRelationshipGroups`
+  - `AttributeRelationshipObservations`
+- structure: The type `AttributeRelationshipDataflow` now has a top-level comment for the field `dataflow`.
+- structure: The type `AttributeRelationshipObservations` now has a top-level comment for the field `observation`.
+
 ## v0.4.0 (2024-12-23)
 
 ### Breaking changes
