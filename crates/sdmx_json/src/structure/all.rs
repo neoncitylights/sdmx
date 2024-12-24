@@ -175,53 +175,6 @@ pub struct Data {
 	pub other: Option<HashMap<String, Value>>,
 }
 
-/// A primitive in the SDMX Informational Model which
-/// describes a concept.
-///
-/// **Note**: Since there are many variants which contain
-/// a somewhat large memory layout (and some much larger
-/// than others), every variant is boxed to ensure a smaller
-/// memory footprint for the entire enum.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
-pub enum ArtefactType {
-	DataStructures(Box<DataStructure>),
-	MetadataStructures(Box<MetadataStructure>),
-	CategorySchemes(Box<CategoryScheme>),
-	ConceptSchemes(Box<ConceptScheme>),
-	Codelists(Box<Codelist>),
-	GeographicCodelists(Box<GeographyCodelist>),
-	GeoGridCodelists(Box<GeoGridCodelist>),
-	ValueLists(Box<CommonArtefactType>),
-	Hierarchies(Box<CommonArtefactType>),
-	HierarchyAssociations(Box<CommonArtefactType>),
-	AgencySchemes(Box<AgencyScheme>),
-	DataProviderSchemes(Box<DataProviderScheme>),
-	DataConsumerSchemes(Box<DataConsumerScheme>),
-	MetadataProviderSchemes(Box<MetadataProviderScheme>),
-	OrganisationUnitSchemes(Box<OrganizationUnitScheme>),
-	Dataflows(Box<Dataflow>),
-	Metadataflows(Box<CommonArtefactType>),
-	ReportingTaxonomies(Box<ReportingTaxonomy>),
-	ProvisionAgreements(Box<CommonArtefactType>),
-	MetadataProvisionAgreements(Box<CommonArtefactType>),
-	StructureMaps(Box<CommonArtefactType>),
-	RepresentationMaps(Box<CommonArtefactType>),
-	ConceptSchemeMaps(Box<CommonArtefactType>),
-	CategorySchemeMaps(Box<CommonArtefactType>),
-	OrganisationSchemeMaps(Box<CommonArtefactType>),
-	ReportingTaxonomyMaps(Box<CommonArtefactType>),
-	Processes(Box<CommonArtefactType>),
-	Categorisations(Box<Categorization>),
-	DataConstraints(Box<DataConstraint>),
-	MetadataConstraints(Box<MetadataConstraint>),
-	CustomTypeSchemes(Box<CustomTypeScheme>),
-	VtlMappingSchemes(Box<VtlMappingScheme>),
-	NamePersonalisationSchemes(Box<NamePersonalizationScheme>),
-	RulesetSchemes(Box<RulesetScheme>),
-	TransformationSchemes(Box<TransformationScheme>),
-	UserDefinedOperatorSchemes(Box<UserDefinedOperatorsScheme>),
-}
-
 /// An abstract generic item within an item scheme.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 pub struct Item {

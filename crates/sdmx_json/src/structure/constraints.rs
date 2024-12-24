@@ -189,20 +189,31 @@ impl FromStr for StringOrScv {
 }
 
 /// A time period value expressed as a range.
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub enum TimeRangeValue {
+	After(TimeAfterPeriod),
+	Before(TimeBeforePeriod),
+	Between(TimeBetweenPeriod),
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
-pub struct TimeRangeValue {
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub after_period: Option<TimePeriodRange>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub before_period: Option<TimePeriodRange>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub end_period: Option<TimePeriodRange>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub start_period: Option<TimePeriodRange>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	#[serde(flatten)]
-	pub other: Option<HashMap<String, Value>>,
+pub struct TimeAfterPeriod {
+	pub after_period: TimePeriodRange,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[serde(rename_all = "camelCase")]
+pub struct TimeBeforePeriod {
+	pub before_period: TimePeriodRange,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[serde(rename_all = "camelCase")]
+pub struct TimeBetweenPeriod {
+	pub end_period: TimePeriodRange,
+	pub start_period: TimePeriodRange,
 }
 
 /// A time period that describes whether a period
@@ -445,7 +456,6 @@ impl_extendable!(
 	QueryableDataSource,
 	CubeRegion,
 	ComponentValueSet,
-	TimeRangeValue,
 	TimePeriodRange,
 	SimpleComponentValue,
 	CubeRegionKey,
