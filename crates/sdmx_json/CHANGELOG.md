@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.6.1 (Unreleased)
+
+### Documentation
+- A few links to various symbols have been fixed.
+
 ## v0.6.0 (2024-12-23)
 
 ### Breaking changes
