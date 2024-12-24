@@ -1,6 +1,14 @@
 # Changelog
 
 ## Unreleased
+### Features
+- primitives: The `Action` enum now implements `TryFrom<char>`.
+- primitives: The `NumberOrString` enum now implements `From<isize>`, `From<String>`, `From<&str>`, and `FromStr`.
+- structure: The `Occurrence` enum now implements `From<usize>`.
+- structure: The `CascadeValues` enum now implements `From<bool>`.
+- structure: The `StringOrScv` enum now implements `From<String>`, `From<SimpleComponentValue>`, `From<&str>`, and `FromStr`.
+- structure: The `StringOrDcv` enum now implements `From<String>`, `From<DataComponentValue>`, `From<&str>`, and `FromStr`.
+
 ### Documentation
 - The message types (`DataMessage`, `MetadataMessage`, and `StructureMessage`) now have top-level examples for deserializing.
 

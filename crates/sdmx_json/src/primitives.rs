@@ -3,6 +3,8 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use serde_with::serde_as;
 use std::collections::HashMap;
+use std::convert::Infallible;
+use std::str::FromStr;
 
 /// A marker trait for denoting that an object is extendable,
 /// where it can accept additional properties beyond those
@@ -77,6 +79,19 @@ pub enum Action {
 	Delete,
 	#[default]
 	Information,
+}
+
+impl TryFrom<char> for Action {
+	type Error = ();
+	fn try_from(value: char) -> Result<Self, Self::Error> {
+		match value {
+			'A' => Ok(Self::Append),
+			'R' => Ok(Self::Replace),
+			'D' => Ok(Self::Delete),
+			'I' => Ok(Self::Information),
+			_ => Err(()),
+		}
+	}
 }
 
 /// Extra information that may be attached to another object.
@@ -304,6 +319,31 @@ pub struct Meta {
 pub enum NumberOrString {
 	Number(isize),
 	String(String),
+}
+
+impl From<isize> for NumberOrString {
+	fn from(value: isize) -> Self {
+		Self::Number(value)
+	}
+}
+
+impl From<String> for NumberOrString {
+	fn from(value: String) -> Self {
+		Self::String(value)
+	}
+}
+
+impl From<&str> for NumberOrString {
+	fn from(value: &str) -> Self {
+		Self::String(value.to_owned())
+	}
+}
+
+impl FromStr for NumberOrString {
+	type Err = Infallible;
+	fn from_str(s: &str) -> Result<Self, Self::Err> {
+		Ok(Self::String(s.to_owned()))
+	}
 }
 
 /// A primitive for describing pure SDMX-JSON values.
