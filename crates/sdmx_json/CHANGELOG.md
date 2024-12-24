@@ -12,6 +12,9 @@
 - structure: The `Artefact` trait now has an `artefact()` method, which returns a reference to `CommonArtefactType`.
 - primitives: There is a new trait called `SdmxMessage`. This is implemented by `DataMessage`, `MetadataMessage`, and `StructureMessage`.
 
+### Documentation
+- The crate-level documentation now elaborates on how the message types can be deserialized.
+
 ### Internal changes
 - The `sdmx_json` crate now depends on `serde_with`.
 
