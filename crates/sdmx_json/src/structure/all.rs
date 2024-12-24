@@ -1,5 +1,6 @@
 use crate::primitives::{
-	Annotation, DataType, Link, LocalizedText, Meta, SdmxMessage, SentinelValue, StatusMessage,
+	Annotation, Contact, DataType, Link, LocalizedText, Meta, SdmxMessage, SentinelValue,
+	StatusMessage,
 };
 use crate::structure::{CommonArtefactType, DataConstraint, MetadataConstraint};
 use serde::{Deserialize, Serialize};
@@ -127,7 +128,7 @@ pub struct Data {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub metadata_provider_schemes: Option<Vec<MetadataProviderScheme>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub organisation_unit_schemes: Option<Vec<OrganizationUnitScheme>>,
+	pub organisation_unit_schemes: Option<Vec<OrganisationUnitScheme>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub dataflows: Option<Vec<Dataflow>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -163,7 +164,7 @@ pub struct Data {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub vtl_mapping_schemes: Option<Vec<VtlMappingScheme>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub name_personalisation_schemes: Option<Vec<NamePersonalizationScheme>>,
+	pub name_personalisation_schemes: Option<Vec<NamePersonalisationScheme>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub ruleset_schemes: Option<Vec<RulesetScheme>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -750,10 +751,18 @@ pub struct CategoryScheme {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub categories: Option<Vec<Item>>,
+	pub categories: Option<Vec<Category>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct Category {
+	#[serde(flatten)]
+	pub item: Item,
+	pub categories: Option<Vec<Category>>,
 }
 
 /// The item scheme for a concept.
@@ -765,16 +774,23 @@ pub struct ConceptScheme {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub concepts: Option<Vec<Item>>,
+	pub concepts: Option<Vec<Concept>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	#[serde(flatten)]
+	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct Concept {
+	#[serde(flatten)]
+	pub item: Item,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub core_representation: Option<CoreRepresentation>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub iso_concept_reference: Option<IsoConceptReference>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub parent: Option<String>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	#[serde(flatten)]
-	pub other: Option<HashMap<String, Value>>,
 }
 
 /// A core representation for a concept.
@@ -817,12 +833,35 @@ pub struct Codelist {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub codes: Option<Vec<Item>>,
+	pub codes: Option<Vec<Code>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub codelist_extensions: Option<Vec<CodelistExtension>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub parent: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct Code {
+	#[serde(flatten)]
+	pub item: Item,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub parent: Option<String>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct CodelistExtension {
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub prefix: Option<String>,
+	pub codelist: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub inclusive_code_selection: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub exclusive_code_selection: Option<String>,
 }
 
 /// The item scheme for a geography codelist.
@@ -834,10 +873,20 @@ pub struct GeographyCodelist {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub geo_feature_set_codes: Option<Vec<Item>>,
+	pub geo_feature_set_codes: Option<Vec<GeoFeatureSetCode>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub codelist_extensions: Option<Vec<CodelistExtension>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct GeoFeatureSetCode {
+	#[serde(flatten)]
+	pub code: Code,
+	pub value: String,
 }
 
 /// The item scheme for a geographic grid codelist.
@@ -849,10 +898,18 @@ pub struct GeoGridCodelist {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub geo_grid_codes: Option<Vec<Item>>,
+	pub geo_grid_codes: Option<Vec<GeoGridCode>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct GeoGridCode {
+	#[serde(flatten)]
+	pub code: Code,
+	pub geo_cell: String,
 }
 
 /// The item scheme for an agency.
@@ -864,10 +921,19 @@ pub struct AgencyScheme {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub agencies: Option<Vec<Item>>,
+	pub agencies: Option<Vec<Agency>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[serde(rename_all = "camelCase")]
+pub struct Agency {
+	#[serde(flatten)]
+	pub item: Item,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub contacts: Option<Vec<Contact>>,
 }
 
 /// The item scheme for a data provider.
@@ -879,11 +945,24 @@ pub struct DataProviderScheme {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub data_providers: Option<Vec<Item>>,
+	pub data_providers: Option<Vec<DataProvider>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
 }
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct DataVendor {
+	#[serde(flatten)]
+	pub item: Item,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub contacts: Option<Vec<Contact>>,
+}
+
+pub type DataConsumer = DataVendor;
+pub type DataProvider = DataVendor;
+pub type MetadataProvider = DataVendor;
 
 /// The item scheme for a data consumer.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
@@ -894,7 +973,7 @@ pub struct DataConsumerScheme {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub data_consumers: Option<Vec<Item>>,
+	pub data_consumers: Option<Vec<DataConsumer>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
@@ -909,7 +988,7 @@ pub struct MetadataProviderScheme {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub metadata_providers: Option<Vec<Item>>,
+	pub metadata_providers: Option<Vec<MetadataProvider>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
@@ -918,16 +997,25 @@ pub struct MetadataProviderScheme {
 /// The item scheme for an organization unit.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
-pub struct OrganizationUnitScheme {
+pub struct OrganisationUnitScheme {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(alias = "organisationUnits")]
-	pub organization_units: Option<Vec<Item>>,
+	pub organization_units: Option<Vec<OrganisationUnit>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct OrganisationUnit {
+	#[serde(flatten)]
+	pub item: Item,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub contacts: Option<Vec<Contact>>,
 }
 
 /// The structure of data that will be provided for
@@ -947,16 +1035,26 @@ pub struct Dataflow {
 /// The item scheme for name personalization.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
-pub struct NamePersonalizationScheme {
+pub struct NamePersonalisationScheme {
 	#[serde(flatten)]
 	pub artefact: CommonArtefactType,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(alias = "namePersonalisations")]
-	pub name_personalizations: Option<Vec<Item>>,
+	pub name_personalisations: Option<Vec<NamePersonalisation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct NamePersonalisation {
+	#[serde(flatten)]
+	pub item: Item,
+	pub vtl_default_name: String,
+	pub personalised_name: String,
+	pub vtl_artefact: String,
 }
 
 /// The item scheme for a reporting taxonomy.
@@ -968,10 +1066,23 @@ pub struct ReportingTaxonomy {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub reporting_categories: Option<Vec<Item>>,
+	pub reporting_categories: Option<Vec<ReportingCategory>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct ReportingCategory {
+	#[serde(flatten)]
+	pub item: Item,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub reporting_categories: Option<Vec<ReportingCategory>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub structural_metadata: Option<Vec<String>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub provisioning_metadata: Option<Vec<String>>,
 }
 
 /// Describes what something (the source) falls under (the target).
@@ -998,10 +1109,31 @@ pub struct CustomTypeScheme {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub custom_types: Option<Vec<Item>>,
+	pub custom_types: Option<Vec<CustomType>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct CustomType {
+	#[serde(flatten)]
+	pub item: Item,
+	pub data_type: CustomDataType,
+	pub vtl_scalar_type: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub vtl_literal_format: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub output_format: Option<String>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub null_value: Option<String>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub enum CustomDataType {
+	String(String),
+	DataType(DataType),
 }
 
 /// The item scheme for a VTL (Validation and Transformation Language)
@@ -1014,10 +1146,68 @@ pub struct VtlMappingScheme {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub vtl_mappings: Option<Vec<Item>>,
+	pub vtl_mappings: Option<Vec<VtlMapping>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub enum VtlMapping {
+	Dataflow(VtlMappingDataflow),
+	Codelist(VtlMappingCodelist),
+	Concept(VtlMappingConcept),
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub struct VtlMappingDataflow {
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub to_vtl_mapping: Option<ToVtlMapping>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub from_vtl_mapping: Option<FromVtlMapping>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub struct ToVtlMapping {
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub to_vtl_sub_space: Option<Vec<String>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub method: Option<ToVtlMappingMethod>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub enum ToVtlMappingMethod {
+	Basic,
+	Pivot,
+	BasicA2M,
+	PivotA2M,
+	String(String),
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub struct FromVtlMapping {
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub from_vtl_sub_space: Option<Vec<String>>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub method: Option<FromVtlMappingMethod>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub enum FromVtlMappingMethod {
+	Basic,
+	Unpivot,
+	M2A,
+	String(String),
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub struct VtlMappingCodelist {
+	pub codelist: String,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub struct VtlMappingConcept {
+	pub concept: String,
 }
 
 /// The item scheme for a ruleset.
@@ -1029,10 +1219,32 @@ pub struct RulesetScheme {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub rulesets: Option<Vec<Item>>,
+	pub rulesets: Option<Vec<Ruleset>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct Ruleset {
+	#[serde(flatten)]
+	pub item: Item,
+	pub ruleset_definition: String,
+	pub ruleset_type: RulesetType,
+	pub ruleset_scope: RulesetDomain,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub enum RulesetType {
+	Datapoint,
+	Hierarchical,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub enum RulesetDomain {
+	Domain,
+	Variable,
 }
 
 /// The item scheme for a transformation.
@@ -1044,10 +1256,20 @@ pub struct TransformationScheme {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub transformations: Option<Vec<Item>>,
+	pub transformations: Option<Vec<Transformation>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[serde(rename_all = "camelCase")]
+pub struct Transformation {
+	#[serde(flatten)]
+	pub item: Item,
+	pub expression: String,
+	pub result: String,
+	pub is_persistent: bool,
 }
 
 /// The item scheme for a user defined operator.
@@ -1059,10 +1281,18 @@ pub struct UserDefinedOperatorsScheme {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_partial: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub user_defined_operators: Option<Vec<Item>>,
+	pub user_defined_operators: Option<Vec<UserDefinedOperator>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[serde(rename_all = "camelCase")]
+pub struct UserDefinedOperator {
+	#[serde(flatten)]
+	pub item: Item,
+	pub operator_definition: String,
 }
 
 impl_extendable!(
@@ -1100,9 +1330,9 @@ impl_extendable!(
 	DataProviderScheme,
 	DataConsumerScheme,
 	MetadataProviderScheme,
-	OrganizationUnitScheme,
+	OrganisationUnitScheme,
 	Dataflow,
-	NamePersonalizationScheme,
+	NamePersonalisationScheme,
 	ReportingTaxonomy,
 	Categorization,
 	CustomTypeScheme,
@@ -1122,9 +1352,9 @@ impl_artefact! {
 	DataProviderScheme,
 	DataConsumerScheme,
 	MetadataProviderScheme,
-	OrganizationUnitScheme,
+	OrganisationUnitScheme,
 	Dataflow,
-	NamePersonalizationScheme,
+	NamePersonalisationScheme,
 	ReportingTaxonomy,
 	Categorization,
 	CustomTypeScheme,
@@ -1135,21 +1365,21 @@ impl_artefact! {
 }
 
 impl_item_scheme! {
-	(ConceptScheme, concepts),
-	(CategoryScheme, categories),
-	(Codelist, codes),
-	(GeographyCodelist, geo_feature_set_codes),
-	(GeoGridCodelist, geo_grid_codes),
-	(AgencyScheme, agencies),
-	(DataProviderScheme, data_providers),
-	(DataConsumerScheme, data_consumers),
-	(MetadataProviderScheme, metadata_providers),
-	(OrganizationUnitScheme, organization_units),
-	(NamePersonalizationScheme, name_personalizations),
-	(ReportingTaxonomy, reporting_categories),
-	(CustomTypeScheme, custom_types),
-	(VtlMappingScheme, vtl_mappings),
-	(RulesetScheme, rulesets),
-	(TransformationScheme, transformations),
-	(UserDefinedOperatorsScheme, user_defined_operators),
+	(CategoryScheme, categories, Category),
+	(ConceptScheme, concepts, Concept),
+	(Codelist, codes, Code),
+	(GeographyCodelist, geo_feature_set_codes, GeoFeatureSetCode),
+	(GeoGridCodelist, geo_grid_codes, GeoGridCode),
+	(AgencyScheme, agencies, Agency),
+	(DataProviderScheme, data_providers, DataProvider),
+	(DataConsumerScheme, data_consumers, DataConsumer),
+	(MetadataProviderScheme, metadata_providers, MetadataProvider),
+	(OrganisationUnitScheme, organization_units, OrganisationUnit),
+	(NamePersonalisationScheme, name_personalisations, NamePersonalisation),
+	(ReportingTaxonomy, reporting_categories, ReportingCategory),
+	(CustomTypeScheme, custom_types, CustomType),
+	(VtlMappingScheme, vtl_mappings, VtlMapping),
+	(RulesetScheme, rulesets, Ruleset),
+	(TransformationScheme, transformations, Transformation),
+	(UserDefinedOperatorsScheme, user_defined_operators, UserDefinedOperator),
 }

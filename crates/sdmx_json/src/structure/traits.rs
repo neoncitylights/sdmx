@@ -1,5 +1,5 @@
 use crate::primitives::{Annotation, Link, LocalizedText};
-use crate::structure::{CommonArtefactType, Item};
+use crate::structure::CommonArtefactType;
 
 /// A primitive type defined within the SDMX Informational Model specification.
 pub trait Artefact {
@@ -20,9 +20,10 @@ pub trait Artefact {
 /// zero or more items, where said items may either
 /// be a subset or full collection.
 pub trait ItemScheme {
+	type Item;
 	fn is_partial(&self) -> Option<bool>;
-	fn items(&self) -> Option<&Vec<Item>>;
-	fn set_items(&mut self, items: Option<Vec<Item>>);
+	fn items(&self) -> Option<&Vec<Self::Item>>;
+	fn set_items(&mut self, items: Option<Vec<Self::Item>>);
 	fn clear_items(&mut self);
 	fn contains_items(&self) -> bool;
 }

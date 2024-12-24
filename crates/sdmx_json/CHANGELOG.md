@@ -5,6 +5,25 @@
 ### Breaking changes
 - structure: Removes unused `ArtefactType` enum.
 - structure: Fixes the type definition of `TimePeriodRange`, so it can only be either after a period, before a period, or the start and end of a period.
+- structure: Fixes the trait definition of `ItemScheme`. It now has an associated type, `Item`.
+- structure: All item schemes now have their own unique item definition.
+  - `CategoryScheme`: The field `categories` now has an inner type of `Category`
+  - `ConceptScheme`: The field `concepts` now has an inner type of `Concept`
+  - `Codelist`: The field `codes` now has an inner type of `Code`
+  - `GeographyCodelist`: The field `geo_feature_set_codes` now has an inner type of `GeoFeatureSetCode`
+  - `GeoGridCodelist`: The field `geo_grid_codes` now has an inner type of `GeoGridCode`
+  - `AgencyScheme`: The field `agencies` now has an inner type of `Agency`
+  - `DataProviderScheme`: The field `data_providers` now has an inner type of `DataProvider`
+  - `DataConsumerScheme`: The field `data_consumers` now has an inner type of `DataConsumer`
+  - `MetadataProviderScheme`: The field `metadata_providers` now has an inner type of `MetadataProvider`
+  - `OrganisationUnitScheme`: The field `organization_units` now has an inner type of `OrganisationUnit`
+  - `NamePersonalisationScheme`: The field `name_personalisations` now has an inner type of `NamePersonalisation`
+  - `ReportingTaxonomy`: The field `reporting_categories` now has an inner type of `ReportingCategory`
+  - `CustomTypeScheme`: The field `custom_types` now has an inner type of `CustomType`
+  - `VtlMappingScheme`: The field `vtl_mappings` now has an inner type of `VtlMapping`
+  - `RulesetScheme`: The field `rulesets` now has an inner type of `Ruleset`
+  - `TransformationScheme`: The field `transformations` now has an inner type of `Transformation`
+  - `UserDefinedOperatorsScheme`: The field `user_defined_operators` now has an inner type of `UserDefinedOperator`
 
 ## v0.6.2 (2024-12-23)
 
