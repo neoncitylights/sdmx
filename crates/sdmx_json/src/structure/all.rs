@@ -521,6 +521,7 @@ pub struct TimeDimensionFormat {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub end_time: Option<String>,
 	pub data_type: TimeDataType,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub sentinel_values: Option<Vec<SentinelValue>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]

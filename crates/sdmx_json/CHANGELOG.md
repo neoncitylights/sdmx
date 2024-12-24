@@ -25,6 +25,9 @@
   - `TransformationScheme`: The field `transformations` now has an inner type of `Transformation`
   - `UserDefinedOperatorsScheme`: The field `user_defined_operators` now has an inner type of `UserDefinedOperator`
 
+## Bugfixes
+- structure: In `TimeDimensionFormat`, the field `sentinel_values` will no longer serialize if it is `None`.
+
 ## v0.6.2 (2024-12-23)
 
 ### Features
