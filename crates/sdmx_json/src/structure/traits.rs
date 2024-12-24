@@ -1,8 +1,9 @@
 use crate::primitives::{Annotation, Link, LocalizedText};
-use crate::structure::Item;
+use crate::structure::{CommonArtefactType, Item};
 
 /// A primitive type defined within the SDMX Informational Model specification.
 pub trait Artefact {
+	fn artefact(&self) -> &CommonArtefactType;
 	fn id(&self) -> &String;
 	fn agency_id(&self) -> Option<&String>;
 	fn version(&self) -> Option<&String>;

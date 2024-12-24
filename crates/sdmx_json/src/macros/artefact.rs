@@ -2,6 +2,10 @@ macro_rules! impl_artefact {
 	($($struct:ty),+ $(,)?) => {
 		$(
 			impl $crate::structure::Artefact for $struct {
+				fn artefact(&self) -> &crate::structure::CommonArtefactType {
+					&self.artefact
+				}
+
 				fn id(&self) -> &String {
 					&(self.artefact.id)
 				}

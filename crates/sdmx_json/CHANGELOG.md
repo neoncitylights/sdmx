@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Features
+- structure: The `Artefact` trait now has an `artefact()` method, which returns a reference to `CommonArtefactType`.
+
 ## v0.5.0 (2024-12-23)
 
 ### Breaking changes
