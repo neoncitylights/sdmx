@@ -1,6 +1,7 @@
 use crate::structure::TimeDataType;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use serde_with::serde_as;
 use std::collections::HashMap;
 
 /// A marker trait for denoting that an object is extendable,
@@ -262,11 +263,16 @@ pub type Sender = Party;
 pub type Receiver = Party;
 
 /// Non-standard information and basic technical information
-/// associated with a message, which may have a single receiver
-/// (but no more than one).
+/// associated with a message.
+///
+/// - For `DataMessage` and `StatusMessage`, they are expected
+///   to have either zero or one receiver.
+/// - For `MetadataMessage`, it is expected to have either zero
+///   or more receivers.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[serde_as]
 #[serde(rename_all = "camelCase")]
-pub struct MetaSingleReceiver {
+pub struct Meta {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub schema: Option<String>,
 	pub id: String,
@@ -280,37 +286,10 @@ pub struct MetaSingleReceiver {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub names: Option<LocalizedText>,
 	pub sender: Sender,
+	#[serde_as(as = "OneOrMany<_, PreferOne>")]
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub receiver: Option<Receiver>,
+	pub receiver: Option<Vec<Receiver>>,
 	pub links: Vec<Link>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	#[serde(flatten)]
-	pub other: Option<HashMap<String, Value>>,
-}
-
-/// Non-standard information and basic technical information
-/// associated with a message, which may have multiple
-/// receivers.
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
-#[serde(rename_all = "camelCase")]
-pub struct MetaManyReceivers {
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub schema: Option<String>,
-	pub id: String,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub test: Option<bool>,
-	pub prepared: String,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub content_languages: Option<Vec<String>>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub name: Option<String>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub names: Option<LocalizedText>,
-	pub sender: Sender,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub receivers: Option<Vec<Receiver>>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
@@ -369,7 +348,6 @@ impl_extendable!(
 	Contact,
 	StatusMessage,
 	Party,
-	MetaSingleReceiver,
-	MetaManyReceivers,
+	Meta,
 	SentinelValue,
 );

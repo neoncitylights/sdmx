@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Breaking changes
+- primitives: The types `MetaSingleReceiver` and `MetaManyReceivers` are now merged into a single type, `Meta`. 
+  - When deserializing, a single receiver will become a `Some(Vec<Receiver>)` with 1 item. If multiple receivers are found, it will still become a `Some(Vec<Receiver>)`. If there are no receivers, it will become `None`.
+  - When serializing, a single receiver will become a JSON string, and multiple receivers will become a JSON array.
+
 ### Features
 - structure: The `Artefact` trait now has an `artefact()` method, which returns a reference to `CommonArtefactType`.
 

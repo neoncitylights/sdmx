@@ -1,5 +1,5 @@
 use crate::primitives::{
-	Annotation, DataType, Link, LocalizedText, MetaSingleReceiver, SentinelValue, StatusMessage,
+	Annotation, DataType, Link, LocalizedText, Meta, SentinelValue, StatusMessage,
 };
 use crate::structure::{CommonArtefactType, DataConstraint, MetadataConstraint};
 use serde::{Deserialize, Serialize};
@@ -12,7 +12,7 @@ use std::str::FromStr;
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct StructureMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub meta: Option<MetaSingleReceiver>,
+	pub meta: Option<Meta>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data: Option<Data>,
 	#[serde(skip_serializing_if = "Option::is_none")]

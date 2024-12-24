@@ -1,6 +1,6 @@
 use crate::primitives::{
-	Action, Annotation, DataType, Link, LocalizedText, MetaSingleReceiver, NumberOrString,
-	SdmxValue, StatusMessage,
+	Action, Annotation, DataType, Link, LocalizedText, Meta, NumberOrString, SdmxValue,
+	StatusMessage,
 };
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -12,7 +12,7 @@ use std::str::FromStr;
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct DataMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub meta: Option<MetaSingleReceiver>,
+	pub meta: Option<Meta>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data: Option<Data>,
 	#[serde(skip_serializing_if = "Option::is_none")]
