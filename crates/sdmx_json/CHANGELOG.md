@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.5.0 (Unreleased)
+## v0.5.0 (2024-12-23)
 
 ### Breaking changes
 - structure: The type `AttributeRelationshipDataFlow` was renamed to `AttributeRelationshipDataflow` (lowercased F in dataflow) to be consistent with the `Dataflow` type.
