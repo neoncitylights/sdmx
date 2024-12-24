@@ -1,6 +1,7 @@
 # Changelog
 
-## Unreleased
+## v0.6.2 (2024-12-23)
+
 ### Features
 - primitives: The `Action` enum now implements `TryFrom<char>`.
 - primitives: The `NumberOrString` enum now implements `From<isize>`, `From<String>`, `From<&str>`, and `FromStr`.

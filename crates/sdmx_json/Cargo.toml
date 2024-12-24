@@ -1,6 +1,6 @@
 [package]
 name = "sdmx_json"
-version = "0.6.1"
+version = "0.6.2"
 authors = ["Samantha Nguyen <contact@samanthanguyen.me>"]
 description = "A Rust implementation of SDMX-JSON (Statistical Data and Metadata eXchange) using Serde"
 readme = "README.md"
