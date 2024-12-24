@@ -7,6 +7,7 @@
 - structure: The following changes have been made to `MetadataAttribute` type:
   - The `local_representation` field is now an optional type (aka `Option`).
   - The inner type of `local_representation` field is now its own type, `MetadataAttributeRepresentation` (instead of `LocalRepresentation`), which now matches the definition from the JSON schema.
+- structure: The name of the enum type `TimeDimensionDataType` was renamed to `TimeDataType` for brevity.
 
 ## v0.3.0 (2024-12-22)
 

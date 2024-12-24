@@ -1,4 +1,4 @@
-use crate::structure::TimeDimensionDataType;
+use crate::structure::TimeDataType;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
@@ -197,26 +197,26 @@ impl DataType {
 	}
 }
 
-impl From<TimeDimensionDataType> for DataType {
-	fn from(value: TimeDimensionDataType) -> Self {
+impl From<TimeDataType> for DataType {
+	fn from(value: TimeDataType) -> Self {
 		match value {
-			TimeDimensionDataType::ObservationalTimePeriod => Self::ObservationalTimePeriod,
-			TimeDimensionDataType::StandardTimePeriod => Self::StandardTimePeriod,
-			TimeDimensionDataType::BasicTimePeriod => Self::BasicTimePeriod,
-			TimeDimensionDataType::GregorianTimePeriod => Self::GregorianTimePeriod,
-			TimeDimensionDataType::GregorianYear => Self::GregorianYear,
-			TimeDimensionDataType::GregorianYearMonth => Self::GregorianYearMonth,
-			TimeDimensionDataType::GregorianDay => Self::GregorianDay,
-			TimeDimensionDataType::ReportingTimePeriod => Self::ReportingTimePeriod,
-			TimeDimensionDataType::ReportingYear => Self::ReportingYear,
-			TimeDimensionDataType::ReportingSemester => Self::ReportingSemester,
-			TimeDimensionDataType::ReportingTrimester => Self::ReportingTrimester,
-			TimeDimensionDataType::ReportingQuarter => Self::ReportingQuarter,
-			TimeDimensionDataType::ReportingMonth => Self::ReportingMonth,
-			TimeDimensionDataType::ReportingWeek => Self::ReportingWeek,
-			TimeDimensionDataType::ReportingDay => Self::ReportingDay,
-			TimeDimensionDataType::DateTime => Self::DateTime,
-			TimeDimensionDataType::TimeRange => Self::TimeRange,
+			TimeDataType::ObservationalTimePeriod => Self::ObservationalTimePeriod,
+			TimeDataType::StandardTimePeriod => Self::StandardTimePeriod,
+			TimeDataType::BasicTimePeriod => Self::BasicTimePeriod,
+			TimeDataType::GregorianTimePeriod => Self::GregorianTimePeriod,
+			TimeDataType::GregorianYear => Self::GregorianYear,
+			TimeDataType::GregorianYearMonth => Self::GregorianYearMonth,
+			TimeDataType::GregorianDay => Self::GregorianDay,
+			TimeDataType::ReportingTimePeriod => Self::ReportingTimePeriod,
+			TimeDataType::ReportingYear => Self::ReportingYear,
+			TimeDataType::ReportingSemester => Self::ReportingSemester,
+			TimeDataType::ReportingTrimester => Self::ReportingTrimester,
+			TimeDataType::ReportingQuarter => Self::ReportingQuarter,
+			TimeDataType::ReportingMonth => Self::ReportingMonth,
+			TimeDataType::ReportingWeek => Self::ReportingWeek,
+			TimeDataType::ReportingDay => Self::ReportingDay,
+			TimeDataType::DateTime => Self::DateTime,
+			TimeDataType::TimeRange => Self::TimeRange,
 		}
 	}
 }
