@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.4.0 (Unreleased)
+## v0.4.0 (2024-12-23)
 
 ### Breaking changes
 This version includes changes to align with the original JSON schema.
