@@ -3,11 +3,12 @@
 ## v0.4.0 (Unreleased)
 
 ### Breaking changes
-- structure: The name of the enum type `MaxOccurs` was renamed to `Occurrence`, to match the original name from the JSON schema.
+This version includes changes to align with the original JSON schema.
+- structure: The enum type `MaxOccurs` was renamed to `Occurrence`.
+- structure: The enum type `TimeDimensionDataType` was renamed to `TimeDataType`.
 - structure: The following changes have been made to `MetadataAttribute` type:
   - The `local_representation` field is now an optional type (aka `Option`).
-  - The inner type of `local_representation` field is now its own type, `MetadataAttributeRepresentation` (instead of `LocalRepresentation`), which now matches the definition from the JSON schema.
-- structure: The name of the enum type `TimeDimensionDataType` was renamed to `TimeDataType` for brevity.
+  - The inner type of `local_representation` field is now its own type, `MetadataAttributeRepresentation` (instead of `LocalRepresentation`.
 
 ## v0.3.0 (2024-12-22)
 
