@@ -17,6 +17,8 @@
 
 ### Internal changes
 - The `sdmx_json` crate now depends on `serde_with`.
+- **Note**: The JSON samples files in the `sdmx_json_de_tests`crate (for deserialization) now closely match their original names from the `sdmx-twg/sdmx-json` repository. The only difference now is that they are prefixed with `twg-`, to indicate where they came from.
+- **Note**: More JSON files from other sources will be introduced later to ensure the correctness of the `sdmx_json` crate.
 
 ## v0.5.0 (2024-12-23)
 

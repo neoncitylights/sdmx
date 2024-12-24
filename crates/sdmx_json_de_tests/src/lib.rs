@@ -37,58 +37,68 @@ macro_rules! fixture {
 }
 
 #[cfg(test)]
-mod tests {
+mod tests_data_message {
 	use super::*;
 	use sdmx_json::data::DataMessage;
+
+	#[test]
+	#[cfg_attr(miri, ignore)]
+	fn test_constructed_sample_full() {
+		let file = read_json::<DataMessage>(fixture!("data/twg-constructed-sample-full.json"));
+		assert!(file.is_ok(), "{:?}", file);
+	}
+
+	#[test]
+	#[cfg_attr(miri, ignore)]
+	fn test_generated_sample() {
+		let file = read_json::<DataMessage>(fixture!("data/twg-generated-sample.json"));
+		assert!(file.is_ok(), "{:?}", file);
+	}
+}
+
+#[cfg(test)]
+mod tests_metadata_message {
+	use super::*;
 	use sdmx_json::metadata::MetadataMessage;
+
+	#[test]
+	#[cfg_attr(miri, ignore)]
+	fn test_constructed_sample() {
+		let file = read_json::<MetadataMessage>(fixture!("metadata/twg-constructed-sample.json"));
+		assert!(file.is_ok(), "{:?}", file);
+	}
+
+	#[test]
+	#[cfg_attr(miri, ignore)]
+	fn test_constructed_sample2() {
+		let file = read_json::<MetadataMessage>(fixture!("metadata/twg-constructed-sample2.json"));
+		assert!(file.is_ok(), "{:?}", file);
+	}
+
+	#[test]
+	#[cfg_attr(miri, ignore)]
+	fn test_generated_sample() {
+		let file = read_json::<MetadataMessage>(fixture!("metadata/twg-generated-sample.json"));
+		assert!(file.is_ok(), "{:?}", file);
+	}
+}
+
+#[cfg(test)]
+mod tests_structure_message {
+	use super::*;
 	use sdmx_json::structure::StructureMessage;
 
 	#[test]
 	#[cfg_attr(miri, ignore)]
-	fn test_data_sample01() {
-		let file = read_json::<DataMessage>(fixture!("data_sample01.json"));
+	fn test_constructed_sample() {
+		let file = read_json::<StructureMessage>(fixture!("structure/twg-constructed-sample.json"));
 		assert!(file.is_ok(), "{:?}", file);
 	}
 
 	#[test]
 	#[cfg_attr(miri, ignore)]
-	fn test_data_sample02() {
-		let file = read_json::<DataMessage>(fixture!("data_sample02.json"));
-		assert!(file.is_ok(), "{:?}", file);
-	}
-
-	#[test]
-	#[cfg_attr(miri, ignore)]
-	fn test_metadata_sample01() {
-		let file = read_json::<MetadataMessage>(fixture!("metadata_sample01.json"));
-		assert!(file.is_ok(), "{:?}", file);
-	}
-
-	#[test]
-	#[cfg_attr(miri, ignore)]
-	fn test_metadata_sample02() {
-		let file = read_json::<MetadataMessage>(fixture!("metadata_sample02.json"));
-		assert!(file.is_ok(), "{:?}", file);
-	}
-
-	#[test]
-	#[cfg_attr(miri, ignore)]
-	fn test_metadata_sample03() {
-		let file = read_json::<MetadataMessage>(fixture!("metadata_sample03.json"));
-		assert!(file.is_ok(), "{:?}", file);
-	}
-
-	#[test]
-	#[cfg_attr(miri, ignore)]
-	fn test_structure_sample01() {
-		let file = read_json::<StructureMessage>(fixture!("structure_sample01.json"));
-		assert!(file.is_ok(), "{:?}", file);
-	}
-
-	#[test]
-	#[cfg_attr(miri, ignore)]
-	fn test_structure_sample02() {
-		let file = read_json::<StructureMessage>(fixture!("structure_sample02.json"));
+	fn test_generated_sample() {
+		let file = read_json::<StructureMessage>(fixture!("structure/twg-generated-sample.json"));
 		assert!(file.is_ok(), "{:?}", file);
 	}
 }
