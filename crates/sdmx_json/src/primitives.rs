@@ -11,6 +11,15 @@ pub trait Extendable {
 	fn other(&self) -> Option<&HashMap<String, Value>>;
 }
 
+/// A marker trait for all top-level message types in the
+/// SDMX-JSON standard.
+pub trait SdmxMessage {
+	type Data;
+	fn meta(&self) -> Option<&Meta>;
+	fn data(&self) -> Option<&Self::Data>;
+	fn errors(&self) -> Option<&Vec<StatusMessage>>;
+}
+
 /// A map between languages and the associated content
 /// in that language.
 pub type LocalizedText = HashMap<String, String>;
@@ -264,11 +273,6 @@ pub type Receiver = Party;
 
 /// Non-standard information and basic technical information
 /// associated with a message.
-///
-/// - For `DataMessage` and `StatusMessage`, they are expected
-///   to have either zero or one receiver.
-/// - For `MetadataMessage`, it is expected to have either zero
-///   or more receivers.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde_as]
 #[serde(rename_all = "camelCase")]
@@ -288,8 +292,8 @@ pub struct Meta {
 	pub sender: Sender,
 	#[serde_as(as = "OneOrMany<_, PreferOne>")]
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub receiver: Option<Vec<Receiver>>,
-	pub links: Vec<Link>,
+	pub receivers: Option<Vec<Receiver>>,
+	pub links: Option<Vec<Link>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,

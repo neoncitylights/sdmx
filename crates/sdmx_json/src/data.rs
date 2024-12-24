@@ -1,6 +1,6 @@
 use crate::primitives::{
-	Action, Annotation, DataType, Link, LocalizedText, Meta, NumberOrString, SdmxValue,
-	StatusMessage,
+	Action, Annotation, DataType, Link, LocalizedText, Meta, NumberOrString, SdmxMessage,
+	SdmxValue, StatusMessage,
 };
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -16,10 +16,25 @@ pub struct DataMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data: Option<Data>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub error: Option<StatusMessage>,
+	pub errors: Option<Vec<StatusMessage>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+impl SdmxMessage for DataMessage {
+	type Data = Data;
+	fn meta(&self) -> Option<&Meta> {
+		self.meta.as_ref()
+	}
+
+	fn data(&self) -> Option<&Self::Data> {
+		self.data.as_ref()
+	}
+
+	fn errors(&self) -> Option<&Vec<StatusMessage>> {
+		self.errors.as_ref()
+	}
 }
 
 impl<'a> TryFrom<&'a [u8]> for DataMessage {
