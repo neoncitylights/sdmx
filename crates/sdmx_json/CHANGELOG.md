@@ -2,8 +2,21 @@
 
 ## Unreleased
 
+### Breaking changes
+- primitives: The types `MetaSingleReceiver` and `MetaManyReceivers` are now merged into a single type, `Meta`.
+  - When deserializing, a single receiver will become a `Some(Vec<Receiver>)` with 1 item. If multiple receivers are found, it will still become a `Some(Vec<Receiver>)`. If there are no receivers, it will become `None`.
+  - When serializing, a single receiver will become a JSON string, and multiple receivers will become a JSON array.
+- data: The `DataMessage` type's field `error` is now `errors`, and is now of type `Option<Vec<StatusMessage>>`.
+
 ### Features
 - structure: The `Artefact` trait now has an `artefact()` method, which returns a reference to `CommonArtefactType`.
+- primitives: There is a new trait called `SdmxMessage`. This is implemented by `DataMessage`, `MetadataMessage`, and `StructureMessage`.
+
+### Documentation
+- The crate-level documentation now elaborates on how the message types can be deserialized.
+
+### Internal changes
+- The `sdmx_json` crate now depends on `serde_with`.
 
 ## v0.5.0 (2024-12-23)
 

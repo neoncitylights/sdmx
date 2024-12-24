@@ -1,5 +1,5 @@
 use crate::primitives::{
-	Action, Annotation, DataType, Link, LocalizedText, MetaManyReceivers, NumberOrString,
+	Action, Annotation, DataType, Link, LocalizedText, Meta, NumberOrString, SdmxMessage,
 	SdmxValue, StatusMessage,
 };
 use serde::{Deserialize, Serialize};
@@ -12,7 +12,7 @@ use std::str::FromStr;
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct MetadataMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub meta: Option<MetaManyReceivers>,
+	pub meta: Option<Meta>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data: Option<Data>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -20,6 +20,21 @@ pub struct MetadataMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+impl SdmxMessage for MetadataMessage {
+	type Data = Data;
+	fn meta(&self) -> Option<&Meta> {
+		self.meta.as_ref()
+	}
+
+	fn data(&self) -> Option<&Self::Data> {
+		self.data.as_ref()
+	}
+
+	fn errors(&self) -> Option<&Vec<StatusMessage>> {
+		self.errors.as_ref()
+	}
 }
 
 impl<'a> TryFrom<&'a [u8]> for MetadataMessage {

@@ -6,7 +6,17 @@
 //! All JSON files are implemented with a top-level type, e.g
 //! [`DataMesssage`][crate::data::DataMessage],
 //! [`MetadataMessage`][crate::metadata::MetadataMessage],
-//! and [`StructureMessage`][crate::structure::StructureMessage].
+//! and [`StructureMessage`][crate::structure::StructureMessage]. Likewise,
+//! all of these types can be deserialized from the following types:
+//!
+//! - a [`&str`] through implementing the `FromStr` trait,
+//!   which internally calls `serde_json::from_str()`
+//! - a [`&[u8]`][slice] through implementing `TryFrom<&u8>`,
+//!   which internally calls `serde_json::from_slice()`
+//! - a [`Value`][serde_json::Value] through implementing `TryFrom<Value>`,
+//!   which internally calls `serde_json::from_value()`
+//! - any type that implements [`Read`](`std::io::Read`) by directly calling
+//!   `serde_json::from_reader()`
 
 #[macro_use]
 mod macros;

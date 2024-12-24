@@ -1,5 +1,5 @@
 use crate::primitives::{
-	Annotation, DataType, Link, LocalizedText, MetaSingleReceiver, SentinelValue, StatusMessage,
+	Annotation, DataType, Link, LocalizedText, Meta, SdmxMessage, SentinelValue, StatusMessage,
 };
 use crate::structure::{CommonArtefactType, DataConstraint, MetadataConstraint};
 use serde::{Deserialize, Serialize};
@@ -12,7 +12,7 @@ use std::str::FromStr;
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct StructureMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub meta: Option<MetaSingleReceiver>,
+	pub meta: Option<Meta>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub data: Option<Data>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -22,6 +22,20 @@ pub struct StructureMessage {
 	pub other: Option<HashMap<String, Value>>,
 }
 
+impl SdmxMessage for StructureMessage {
+	type Data = Data;
+	fn meta(&self) -> Option<&Meta> {
+		self.meta.as_ref()
+	}
+
+	fn data(&self) -> Option<&Self::Data> {
+		self.data.as_ref()
+	}
+
+	fn errors(&self) -> Option<&Vec<StatusMessage>> {
+		self.errors.as_ref()
+	}
+}
 impl<'a> TryFrom<&'a [u8]> for StructureMessage {
 	type Error = serde_json::Error;
 	fn try_from(slice: &'a [u8]) -> Result<Self, Self::Error> {
