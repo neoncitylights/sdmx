@@ -9,6 +9,44 @@ use std::str::FromStr;
 
 /// The top-level type of a JSON file that conforms to the
 /// SDMX-JSON Data Message format.
+///
+/// # Deserializing
+/// ## From a string
+/// ```no_run
+/// use std::str::FromStr;
+/// use std::fs::read_to_string;
+/// use sdmx_json::data::DataMessage;
+///
+/// fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
+///     let file1 = read_to_string("sdmx-data.json")?;
+///     let message1 = DataMessage::from_str(file1.as_str())?;
+///     Ok(())
+/// }
+/// ```
+///
+/// ## From a byte slice
+/// ```no_run
+/// use std::fs::read;
+/// use sdmx_json::data::DataMessage;
+///
+/// fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
+///     let file2 = read("sdmx-data.json")?;
+///     let message2 = DataMessage::try_from(file2.as_slice())?;
+///     Ok(())
+/// }
+/// ```
+///
+/// ## From a `serde_json::Value`
+/// ```no_run
+/// use serde_json::json;
+/// use sdmx_json::data::DataMessage;
+///
+/// fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
+///     let value = json!({}); // assuming this has content
+///     let message3 = DataMessage::try_from(value);
+///     Ok(())
+/// }
+/// ```
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
 pub struct DataMessage {
 	#[serde(skip_serializing_if = "Option::is_none")]
