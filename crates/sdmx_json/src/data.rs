@@ -18,8 +18,8 @@ use std::str::FromStr;
 /// use sdmx_json::data::DataMessage;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
-///     let file1 = read_to_string("sdmx-data.json")?;
-///     let message1 = DataMessage::from_str(file1.as_str())?;
+///     let file = read_to_string("sdmx-data.json")?;
+///     let message = DataMessage::from_str(file.as_str())?;
 ///     Ok(())
 /// }
 /// ```
@@ -30,8 +30,8 @@ use std::str::FromStr;
 /// use sdmx_json::data::DataMessage;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
-///     let file2 = read("sdmx-data.json")?;
-///     let message2 = DataMessage::try_from(file2.as_slice())?;
+///     let file = read("sdmx-data.json")?;
+///     let message = DataMessage::try_from(file.as_slice())?;
 ///     Ok(())
 /// }
 /// ```
@@ -43,7 +43,7 @@ use std::str::FromStr;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
 ///     let value = json!({}); // assuming this has content
-///     let message3 = DataMessage::try_from(value);
+///     let message = DataMessage::try_from(value);
 ///     Ok(())
 /// }
 /// ```
