@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.0 (Unreleased)
+
+### Breaking changes
+- structure: The name of the enum type `MaxOccurs` was renamed to `Occurrence`, to match the original name from the JSON schema.
+
 ## v0.3.0 (2024-12-22)
 
 ### Breaking changes
