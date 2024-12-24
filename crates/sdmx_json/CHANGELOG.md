@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.6.0 (2024-12-23)
 
 ### Breaking changes
 - primitives: The types `MetaSingleReceiver` and `MetaManyReceivers` are now merged into a single type, `Meta`.
@@ -15,8 +15,10 @@
 ### Documentation
 - The crate-level documentation now elaborates on how the message types can be deserialized.
 
-### Internal changes
+### Internal changes and notes
 - The `sdmx_json` crate now depends on `serde_with`.
+- Note(data): This fixes an error in `data_sample01.json` file (originally from the sdmx-twg/sdmx-json repository) by aligning it with `data_sample02.json`. Note that `data_sample02.json` accepts a property named "receivers" which is an array.
+- Note(structure): There is also an error in the original JSON schema for SDMX-JSON Structure Message. The original file `1-sdmx-json-field-guide.md` says that the meta property has a `receiver` type of a Receiver type, even though `structure_sample01.json` and `structure_sample02.json` have a `receivers` property which accept an array of Receiver type.
 
 ## v0.5.0 (2024-12-23)
 
