@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+### Documentation
+- The message types (`DataMessage`, `MetadataMessage`, and `StructureMessage`) now have top-level examples for deserializing.
+
 ## v0.6.1 (2024-12-23)
 
 ### Documentation
