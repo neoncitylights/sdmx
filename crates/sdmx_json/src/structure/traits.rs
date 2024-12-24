@@ -22,4 +22,7 @@ pub trait Artefact {
 pub trait ItemScheme {
 	fn is_partial(&self) -> Option<bool>;
 	fn items(&self) -> Option<&Vec<Item>>;
+	fn set_items(&mut self, items: Option<Vec<Item>>);
+	fn clear_items(&mut self);
+	fn contains_items(&self) -> bool;
 }

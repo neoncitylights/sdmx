@@ -9,6 +9,12 @@
 - structure: The `CascadeValues` enum now implements `From<bool>`.
 - structure: The `StringOrScv` enum now implements `From<String>`, `From<SimpleComponentValue>`, `From<&str>`, and `FromStr`.
 - structure: The `StringOrDcv` enum now implements `From<String>`, `From<DataComponentValue>`, `From<&str>`, and `FromStr`.
+- structure: The `ItemScheme` trait now has 3 new methods related to items:
+	```rs
+	fn set_items(&mut self, items: Option<Vec<Item>>);
+	fn clear_items(&mut self);
+	fn contains_items(&self) -> bool;
+	```
 
 ### Documentation
 - The message types (`DataMessage`, `MetadataMessage`, and `StructureMessage`) now have top-level examples for deserializing.
