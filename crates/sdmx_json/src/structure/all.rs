@@ -324,7 +324,7 @@ pub struct LocalRepresentation {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub min_occurs: Option<usize>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub max_occurs: Option<MaxOccurs>,
+	pub max_occurs: Option<Occurrence>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
@@ -334,7 +334,7 @@ pub struct LocalRepresentation {
 /// be an unsigned integer or unbounded (can occur without
 /// any upper limit).
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
-pub enum MaxOccurs {
+pub enum Occurrence {
 	Signed(usize),
 	Unbounded,
 }
@@ -687,7 +687,7 @@ pub struct MetadataAttribute {
 	pub local_representation: LocalRepresentation,
 	pub min_occurs: usize,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub max_occurs: Option<MaxOccurs>,
+	pub max_occurs: Option<Occurrence>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub is_presentational: Option<bool>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -746,7 +746,7 @@ pub struct CoreRepresentation {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub min_occurs: Option<usize>,
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub max_occurs: Option<MaxOccurs>,
+	pub max_occurs: Option<Occurrence>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
