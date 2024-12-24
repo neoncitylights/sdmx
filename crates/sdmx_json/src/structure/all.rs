@@ -683,8 +683,8 @@ pub struct MetadataAttribute {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub links: Option<Vec<Link>>,
 	pub concept_identity: String,
-	// TODO: this local repr can't have min_occurs/max_occurs
-	pub local_representation: LocalRepresentation,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub local_representation: Option<MetadataAttributeRepresentation>,
 	pub min_occurs: usize,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub max_occurs: Option<Occurrence>,
@@ -695,6 +695,28 @@ pub struct MetadataAttribute {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
 	pub other: Option<HashMap<String, Value>>,
+}
+
+/// The possible local representations of a metadata attribute
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub enum MetadataAttributeRepresentation {
+	Enumeration(MetadataAttributeEnumeration),
+	Format(MetadataAttributeFormat),
+}
+
+/// An enumeration-based local representation of a metadata attribute
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
+#[serde(rename_all = "camelCase")]
+pub struct MetadataAttributeEnumeration {
+	pub enumeration: String,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub enumeration_format: Option<EnumerationFormat>,
+}
+
+/// A format-based local representation of a metadata attribute
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub struct MetadataAttributeFormat {
+	pub format: Format,
 }
 
 /// The item scheme for a category.
