@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.6.1 (Unreleased)
+## v0.6.1 (2024-12-23)
 
 ### Documentation
 - A few links to various symbols have been fixed.
