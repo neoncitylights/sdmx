@@ -17,12 +17,14 @@
 
 ### Internal changes and notes
 - The `sdmx_json` crate now depends on `serde_with`.
-- Note(data): This fixes a supposed discrepancy within SDMX-JSON Data Message. It is presumed that one of the JSON sample files had a discrepancy according to the following notes:
-  - The original file [`1-sdmx-json-field-guide.md`](https://github.com/sdmx-twg/sdmx-json/blob/71fe5eaa9fcd29e3c15f2f0216a19b9b650b1dbd/data-message/docs/1-sdmx-json-field-guide.md) says that the meta object has a `receivers` property, which accepts an optional array of the Receiver type.
+- **Note**: The JSON samples files in the `sdmx_json_de_tests` crate (for deserialization) now closely match their original names from the `sdmx-twg/sdmx-json` repository. The only difference now is that they are prefixed with `twg-`, to indicate where they came from.
+  - More JSON files from other sources will be introduced later to ensure the correctness of the `sdmx_json` crate.
+- **Note** (data): This fixes a supposed discrepancy within SDMX-JSON Data Message. It is presumed that one of the JSON sample files had a discrepancy according to the following notes:
+  - The original file [`1-sdmx-json-field-guide.md`](https://github.com/sdmx-twg/sdmx-json/blob/71fe5eaa9fcd29e3c15f2f0216a19b9b650b1dbd/data-message/docs/1-sdmx-json-field-guide.md) says that the meta object has a `receivers` property, which accepts an optional array of the Receiver  type.
   - The original file [`schemas/2.0.0/sdmx-json-data-schema.json`](https://github.com/sdmx-twg/sdmx-json/blob/71fe5eaa9fcd29e3c15f2f0216a19b9b650b1dbd/data-message/tools/schemas/2.0.0/sdmx-json-data-schema.json) also says the same above as the markdown file.
-  - However, the original file `data_sample01.json` file had a meta object where a property is named `receiver`, which contains an object of Receiver type. This is fixed by making it an array.
-  - Note that `data_sample02.json` is correct, as it contains a property named "receivers" which is an array of the Receiver type.
-- Note(structure): This fixes a supposed discrepancy within SDMX-JSON Structure Message. It is presumed that the original markdown file had a discrepancy according to the following notes:
+  - However, the original file `constructed-sample-full.json` file had a meta object where a property is named `receiver`, which  contains an object of Receiver type. This is fixed by making it an array.
+  - Note that `generated-sample.json` is correct, as it contains a property named "receivers" which is an array of the Receiver type.
+- **Note** (structure): This fixes a supposed discrepancy within SDMX-JSON Structure Message. It is presumed that the original markdown file had a discrepancy according to the following notes:
   - The original file [`1-sdmx-json-field-guide.md`](https://github.com/sdmx-twg/sdmx-json/blob/71fe5eaa9fcd29e3c15f2f0216a19b9b650b1dbd/structure-message/docs/1-sdmx-json-field-guide.md) says that the meta object has a `receiver` property of a Receiver type.
   - The original file [`schemas/2.0.0/sdmx-json-structure-schema.json`](https://github.com/sdmx-twg/sdmx-json/blob/master/structure-message/tools/schemas/2.0.0/sdmx-json-structure-schema.json) however, says that the meta object has a `receivers` property which is an array of the Receiver type.
   - Both original sample JSON files from `sdmx-twg/json` have a `receivers` property which accept an array of Receiver type.
