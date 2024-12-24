@@ -3,6 +3,8 @@ use crate::structure::CommonArtefactType;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
+use std::convert::Infallible;
+use std::str::FromStr;
 
 /// A subset of the definition of the allowable (or available)
 /// content of a dataset.
@@ -161,6 +163,31 @@ pub enum StringOrScv {
 	SimpleComponent(SimpleComponentValue),
 }
 
+impl From<String> for StringOrScv {
+	fn from(value: String) -> Self {
+		Self::String(value)
+	}
+}
+
+impl From<SimpleComponentValue> for StringOrScv {
+	fn from(value: SimpleComponentValue) -> Self {
+		Self::SimpleComponent(value)
+	}
+}
+
+impl From<&str> for StringOrScv {
+	fn from(value: &str) -> Self {
+		Self::String(value.to_owned())
+	}
+}
+
+impl FromStr for StringOrScv {
+	type Err = Infallible;
+	fn from_str(s: &str) -> Result<Self, Self::Err> {
+		Ok(Self::String(s.to_owned()))
+	}
+}
+
 /// A time period value expressed as a range.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
 #[serde(rename_all = "camelCase")]
@@ -215,6 +242,12 @@ pub enum CascadeValues {
 	Boolean(bool),
 	#[serde(rename = "excluderoot")]
 	ExcludeRoot,
+}
+
+impl From<bool> for CascadeValues {
+	fn from(value: bool) -> Self {
+		Self::Boolean(value)
+	}
 }
 
 /// A set of values for a dimension that defines
@@ -310,6 +343,31 @@ pub struct DataComponentValueSet {
 pub enum StringOrDcv {
 	String(String),
 	Dcv(DataComponentValue),
+}
+
+impl From<String> for StringOrDcv {
+	fn from(value: String) -> Self {
+		Self::String(value)
+	}
+}
+
+impl From<DataComponentValue> for StringOrDcv {
+	fn from(value: DataComponentValue) -> Self {
+		Self::Dcv(value)
+	}
+}
+
+impl From<&str> for StringOrDcv {
+	fn from(value: &str) -> Self {
+		Self::String(value.to_owned())
+	}
+}
+
+impl FromStr for StringOrDcv {
+	type Err = Infallible;
+	fn from_str(s: &str) -> Result<Self, Self::Err> {
+		Ok(Self::String(s.to_owned()))
+	}
 }
 
 /// A simple value for a component.

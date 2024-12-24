@@ -402,6 +402,12 @@ pub enum Occurrence {
 	Unbounded,
 }
 
+impl From<usize> for Occurrence {
+	fn from(value: usize) -> Self {
+		Self::Signed(value)
+	}
+}
+
 /// A restricted version of [`Format`] that only allows facets
 /// and text types applicable to codes.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
