@@ -497,7 +497,7 @@ pub struct TimeDimensionFormat {
 	pub start_time: Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub end_time: Option<String>,
-	pub data_type: TimeDimensionDataType,
+	pub data_type: TimeDataType,
 	pub sentinel_values: Option<Vec<SentinelValue>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	#[serde(flatten)]
@@ -506,7 +506,7 @@ pub struct TimeDimensionFormat {
 
 /// The specific data type of a time dimension.
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq)]
-pub enum TimeDimensionDataType {
+pub enum TimeDataType {
 	ObservationalTimePeriod,
 	StandardTimePeriod,
 	BasicTimePeriod,
@@ -526,7 +526,7 @@ pub enum TimeDimensionDataType {
 	TimeRange,
 }
 
-impl TimeDimensionDataType {
+impl TimeDataType {
 	pub const fn is_reporting(&self) -> bool {
 		matches!(
 			self,
@@ -552,7 +552,7 @@ impl TimeDimensionDataType {
 	}
 }
 
-impl TryFrom<DataType> for TimeDimensionDataType {
+impl TryFrom<DataType> for TimeDataType {
 	type Error = ();
 	fn try_from(value: DataType) -> Result<Self, Self::Error> {
 		match value {
