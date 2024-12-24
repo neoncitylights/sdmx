@@ -5,6 +5,11 @@
 ### Breaking changes
 - structure: Removes unused `ArtefactType` enum.
 - structure: Fixes the type definition of `TimePeriodRange`, so it can only be either after a period, before a period, or the start and end of a period.
+- structure: Some types and fields are renamed to be consistent with the original British English spelling from the standard.
+  - The `OrganizationUnitScheme` type is now named `OrganisationUnitScheme`.
+  - The `NamePersonalisationUnitScheme` type is now named `NamePersonalisationUnitScheme`.
+  - In `Data`, the field `organization_units` is renamed to `organisation_units`.
+  - In `Data`, the field `name_personalization_units` is renamed to `name_personalization_units`.
 - structure: Fixes the trait definition of `ItemScheme`. It now has an associated type, `Item`.
 - structure: All item schemes now have their own unique item definition.
   - `CategoryScheme`: The field `categories` now has an inner type of `Category`
@@ -25,8 +30,12 @@
   - `TransformationScheme`: The field `transformations` now has an inner type of `Transformation`
   - `UserDefinedOperatorsScheme`: The field `user_defined_operators` now has an inner type of `UserDefinedOperator`
 
+
 ## Bugfixes
 - structure: In `TimeDimensionFormat`, the field `sentinel_values` will no longer serialize if it is `None`.
+- structure: The `Codelist` type now has a `codelist_extensions` field.
+- structure: The `GeographyCodelist` type now has a `codelist_extensions` field.
+
 
 ## v0.6.2 (2024-12-23)
 
