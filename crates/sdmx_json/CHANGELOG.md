@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.0
+
+### Breaking changes (Unreleased)
+- structure: Removes unused `ArtefactType` enum.
+- structure: Fixes the type definition of `TimePeriodRange`, so it can only be either after a period, before a period, or the start and end of a period.
+
 ## v0.6.2 (2024-12-23)
 
 ### Features
