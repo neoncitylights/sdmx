@@ -11,6 +11,7 @@
   - In `Data`, the field `organization_units` is renamed to `organisation_units`.
   - In `Data`, the field `name_personalization_units` is renamed to `name_personalization_units`.
 - structure: Fixes the trait definition of `ItemScheme`. It now has an associated type, `Item`.
+- structure: The `Item` type was renamed to `CommonItem`, and there is a new trait named `Item`.
 - structure: All item schemes now have their own unique item definition.
   - `CategoryScheme`: The field `categories` now has an inner type of `Category`
   - `ConceptScheme`: The field `concepts` now has an inner type of `Concept`

@@ -16,6 +16,16 @@ pub trait Artefact {
 	fn links(&self) -> Option<&Vec<Link>>;
 }
 
+pub trait Item {
+	fn id(&self) -> &String;
+	fn name(&self) -> Option<&String>;
+	fn names(&self) -> Option<&LocalizedText>;
+	fn description(&self) -> Option<&String>;
+	fn descriptions(&self) -> Option<&LocalizedText>;
+	fn annotations(&self) -> Option<&Vec<Annotation>>;
+	fn links(&self) -> Option<&Vec<Link>>;
+}
+
 /// A primitive type which may or may not contain
 /// zero or more items, where said items may either
 /// be a subset or full collection.

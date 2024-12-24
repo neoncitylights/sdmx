@@ -178,7 +178,7 @@ pub struct Data {
 
 /// An abstract generic item within an item scheme.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Default)]
-pub struct Item {
+pub struct CommonItem {
 	pub id: String,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub name: Option<String>,
@@ -762,7 +762,7 @@ pub struct CategoryScheme {
 #[serde(rename_all = "camelCase")]
 pub struct Category {
 	#[serde(flatten)]
-	pub item: Item,
+	pub item: CommonItem,
 	pub categories: Option<Vec<Category>>,
 }
 
@@ -785,7 +785,7 @@ pub struct ConceptScheme {
 #[serde(rename_all = "camelCase")]
 pub struct Concept {
 	#[serde(flatten)]
-	pub item: Item,
+	pub item: CommonItem,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub core_representation: Option<CoreRepresentation>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -848,7 +848,7 @@ pub struct Codelist {
 #[serde(rename_all = "camelCase")]
 pub struct Code {
 	#[serde(flatten)]
-	pub item: Item,
+	pub item: CommonItem,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub parent: Option<String>,
 }
@@ -932,7 +932,7 @@ pub struct AgencyScheme {
 #[serde(rename_all = "camelCase")]
 pub struct Agency {
 	#[serde(flatten)]
-	pub item: Item,
+	pub item: CommonItem,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub contacts: Option<Vec<Contact>>,
 }
@@ -956,7 +956,7 @@ pub struct DataProviderScheme {
 #[serde(rename_all = "camelCase")]
 pub struct DataVendor {
 	#[serde(flatten)]
-	pub item: Item,
+	pub item: CommonItem,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub contacts: Option<Vec<Contact>>,
 }
@@ -1014,7 +1014,7 @@ pub struct OrganisationUnitScheme {
 #[serde(rename_all = "camelCase")]
 pub struct OrganisationUnit {
 	#[serde(flatten)]
-	pub item: Item,
+	pub item: CommonItem,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub contacts: Option<Vec<Contact>>,
 }
@@ -1052,7 +1052,7 @@ pub struct NamePersonalisationScheme {
 #[serde(rename_all = "camelCase")]
 pub struct NamePersonalisation {
 	#[serde(flatten)]
-	pub item: Item,
+	pub item: CommonItem,
 	pub vtl_default_name: String,
 	pub personalised_name: String,
 	pub vtl_artefact: String,
@@ -1077,7 +1077,7 @@ pub struct ReportingTaxonomy {
 #[serde(rename_all = "camelCase")]
 pub struct ReportingCategory {
 	#[serde(flatten)]
-	pub item: Item,
+	pub item: CommonItem,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub reporting_categories: Option<Vec<ReportingCategory>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -1120,7 +1120,7 @@ pub struct CustomTypeScheme {
 #[serde(rename_all = "camelCase")]
 pub struct CustomType {
 	#[serde(flatten)]
-	pub item: Item,
+	pub item: CommonItem,
 	pub data_type: CustomDataType,
 	pub vtl_scalar_type: String,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -1154,7 +1154,15 @@ pub struct VtlMappingScheme {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
-pub enum VtlMapping {
+pub struct VtlMapping {
+	#[serde(flatten)]
+	pub item: CommonItem,
+	#[serde(flatten)]
+	pub kind: VtlMappingKind,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub enum VtlMappingKind {
 	Dataflow(VtlMappingDataflow),
 	Codelist(VtlMappingCodelist),
 	Concept(VtlMappingConcept),
@@ -1230,7 +1238,7 @@ pub struct RulesetScheme {
 #[serde(rename_all = "camelCase")]
 pub struct Ruleset {
 	#[serde(flatten)]
-	pub item: Item,
+	pub item: CommonItem,
 	pub ruleset_definition: String,
 	pub ruleset_type: RulesetType,
 	pub ruleset_scope: RulesetDomain,
@@ -1267,7 +1275,7 @@ pub struct TransformationScheme {
 #[serde(rename_all = "camelCase")]
 pub struct Transformation {
 	#[serde(flatten)]
-	pub item: Item,
+	pub item: CommonItem,
 	pub expression: String,
 	pub result: String,
 	pub is_persistent: bool,
@@ -1292,14 +1300,14 @@ pub struct UserDefinedOperatorsScheme {
 #[serde(rename_all = "camelCase")]
 pub struct UserDefinedOperator {
 	#[serde(flatten)]
-	pub item: Item,
+	pub item: CommonItem,
 	pub operator_definition: String,
 }
 
 impl_extendable!(
 	StructureMessage,
 	Data,
-	Item,
+	CommonItem,
 	DataStructure,
 	DataStructureComponents,
 	AttributeList,
@@ -1363,6 +1371,27 @@ impl_artefact! {
 	RulesetScheme,
 	TransformationScheme,
 	UserDefinedOperatorsScheme,
+}
+
+impl_item! {
+	Category,
+	Concept,
+	Code,
+	Agency,
+	DataVendor,
+	OrganisationUnit,
+	NamePersonalisation,
+	ReportingCategory,
+	CustomType,
+	VtlMapping,
+	Ruleset,
+	Transformation,
+	UserDefinedOperator,
+}
+
+impl_item! {
+	geo:GeoFeatureSetCode,
+	geo:GeoGridCode,
 }
 
 impl_item_scheme! {
