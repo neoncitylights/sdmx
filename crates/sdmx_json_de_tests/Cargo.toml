@@ -6,4 +6,4 @@ edition = "2021"
 
 [dependencies]
 sdmx_json.path = "../sdmx_json"
-serde_json = "1.0.134"
+serde_json = "1.0.138"
